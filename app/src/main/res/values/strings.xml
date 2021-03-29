@@ -1,3 +1,35 @@
 <resources>
-    <string name="app_name">Digikofy App</string>
+    <string name="app_name">Digikofy</string>
+
+    <!-- Barre de navigation -->
+    <string name="nav_bar_home_page">Accueil</string>
+    <string name="nav_bar_machine_page">Machines</string>
+    <string name="nav_bar_coffee_page">Cafés</string>
+
+    <!-- Accueil -->
+    <string name="home_page_title">Bonjour ☕</string>
+    <string name="home_page_new_coffee_button">Préparer un nouveau café</string>
+    <string name="home_page_next_coffee_title">Prochaine préparation</string>
+    <string name="home_page_prepare_now_button">Préparer maintenant</string>
+    <string name="home_page_show_all_next_coffees_button">Voir toutes les préparations à venir</string>
+    <string name="home_page_last_coffee_title">Dernière préparation</string>
+    <string name="home_page_prepare_coffee_again_button">Préparer à nouveau</string>
+    <string name="home_page_show_all_last_coffees_button">Voir toutes les préparations passées</string>
+
+    <!-- Machines -->
+    <string name="machine_page_title">Mes machines</string>
+    <string name="machine_page_add_button">Nouvelle machine</string>
+    <string-array name="machine_state">
+        <item>Disponible</item>
+        <item>Indisponible</item>
+    </string-array>
+
+    <!-- Coffees -->
+    <string name="coffee_page_title">Mes préparations</string>
+    <string name="coffee_page_add_button">Nouveau café</string>
+    <string name="coffee_page_saved_coffees_tab">Enregistrées</string>
+    <string name="coffee_page_next_coffees_tab">À venir</string>
+    <string name="coffee_page_past_coffees_tab">Passées</string>
+    <string name="coffee_page_plan_coffee">Mes machines</string>
+
 </resources>
