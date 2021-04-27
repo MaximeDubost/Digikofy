@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/machine_page"
+        android:title="@string/bottom_machine_item"
+        android:icon="@drawable/ic_machine">
+    </item>
+    <item
+        android:id="@+id/home_page"
+        android:title="@string/bottom_home_item"
+        android:icon="@drawable/ic_home"
+        android:checked="true">
+    </item>
+    <item
+        android:id="@+id/coffee_page"
+        android:title="@string/bottom_coffee_item"
+        android:icon="@drawable/ic_coffee">
+    </item>
+</menu>
