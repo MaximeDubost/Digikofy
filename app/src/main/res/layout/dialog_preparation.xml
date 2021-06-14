@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    app:cardCornerRadius="@dimen/medium_dimen">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_preparation_dialog_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/preparation"
+            style="@style/BoldTitleTextStyle32"
+            android:layout_margin="@dimen/default_dimen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_close_preparation_dialog"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="@dimen/medium_plus_dimen"
+            android:layout_height="@dimen/medium_plus_dimen"
+            android:src="@drawable/ic_close"
+            android:layout_margin="@dimen/default_dimen"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/very_tiny_dimen"
+            android:layout_marginBottom="@dimen/tiny_dimen"
+            app:layout_constraintBottom_toTopOf="@+id/btn_preparation_dialog_prepare"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_preparation_dialog_title">
+
+            <TextView
+                android:id="@+id/tv_detail_preparation_name"
+                style="@style/MediumTitleTextStyle24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/very_tiny_dimen"
+                android:layout_marginStart="@dimen/default_dimen"
+                android:text="name"/>
+
+            <TextView
+                android:id="@+id/tv_detail_preparation_coffee_name"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_dimen"
+                android:paddingBottom="@dimen/very_tiny_dimen"
+                android:text="coffee name" />
+
+            <TextView
+                android:id="@+id/tv_detail_preparation_days_of_week"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_dimen"
+                android:paddingBottom="@dimen/very_tiny_dimen"
+                android:text="days of week" />
+
+            <TextView
+                android:id="@+id/tv_detail_preparation_hours"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_dimen"
+                android:paddingBottom="@dimen/very_tiny_dimen"
+                android:text="hours" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny_dimen"
+                android:layout_marginBottom="@dimen/tiny_dimen"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_label_detail_preparation_creation_date"
+                        style="@style/RegularGreyTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_dimen"
+                        android:paddingBottom="@dimen/very_tiny_dimen"
+                        android:text="Ajoutée" />
+                    <TextView
+                        android:id="@+id/tv_detail_preparation_creation_date"
+                        style="@style/RegularGreyTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/very_tiny_dimen"
+                        android:paddingBottom="@dimen/very_tiny_dimen"
+                        android:text="dd/mm/yyyy" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_label_detail_preparation_last_update"
+                        style="@style/RegularGreyTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_dimen"
+                        android:paddingBottom="@dimen/very_tiny_dimen"
+                        android:text="Dernière action" />
+                    <TextView
+                        android:id="@+id/tv_detail_preparation_last_update"
+                        style="@style/RegularGreyTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/very_tiny_dimen"
+                        android:paddingBottom="@dimen/very_tiny_dimen"
+                        android:text="dd/mm/yyyy" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_preparation_dialog_prepare"
+            style="@style/DefaultButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/medium_dimen"
+            android:layout_marginBottom="@dimen/short_dimen"
+            android:drawableStart="@drawable/ic_play"
+            android:drawablePadding="@dimen/very_tiny_dimen"
+            android:paddingStart="@dimen/tiny_dimen"
+            android:paddingEnd="@dimen/short_dimen"
+            android:drawableTint="@color/blue"
+            android:text="Préparer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fab_preparation_dialog_remove"
+            app:layout_constraintStart_toStartOf="@+id/tv_preparation_dialog_title"
+            tools:targetApi="m" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_preparation_dialog_remove"
+            app:fabSize="mini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/short_dimen"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Utiliser"
+            android:src="@drawable/ic_delete"
+            app:backgroundTint="@color/red"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_preparation_dialog_prepare"
+            app:layout_constraintEnd_toEndOf="@+id/iv_close_preparation_dialog"
+            app:layout_constraintStart_toEndOf="@+id/btn_preparation_dialog_prepare"
+            app:layout_constraintTop_toTopOf="@+id/btn_preparation_dialog_prepare" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

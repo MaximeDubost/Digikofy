@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "294107437875",
+    "firebase_url": "https://digikofy-project-default-rtdb.firebaseio.com",
+    "project_id": "digikofy-project",
+    "storage_bucket": "digikofy-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294107437875:android:3fe80e2f66542ac1083c46",
+        "android_client_info": {
+          "package_name": "fr.maximedubost.digikofyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294107437875-5q5cbc652bj3i3o1q82gjupqbnsrelo9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.maximedubost.digikofyapp",
+            "certificate_hash": "e92ecf5f152ccd1c475d67068764f9adc020bb47"
+          }
+        },
+        {
+          "client_id": "294107437875-8j6o9jgn7cfcjg66uthlajeeggbmhj76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIpoLLX0pl4NOMg7CEmoj3GMw_0glGlsc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294107437875-8j6o9jgn7cfcjg66uthlajeeggbmhj76.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

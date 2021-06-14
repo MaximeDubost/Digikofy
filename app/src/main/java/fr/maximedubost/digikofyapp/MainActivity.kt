@@ -5,9 +5,16 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 import fr.maximedubost.digikofyapp.fragments.HomeFragment
 import fr.maximedubost.digikofyapp.fragments.MachineFragment
 import fr.maximedubost.digikofyapp.fragments.PreparationFragment
+import fr.maximedubost.digikofyapp.repositories.BaseRepository
+import fr.maximedubost.digikofyapp.repositories.HomeRepository
+import fr.maximedubost.digikofyapp.repositories.MachineRepository
+import fr.maximedubost.digikofyapp.repositories.PreparationRepository
+import kotlinx.android.synthetic.main.fragment_machine.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,53 +22,58 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        loadFragment(HomeFragment(this), R.string.home_page_title)
+        // Chargement du fragment par défaut
+        loadFragment(HomeFragment(), HomeRepository())
 
         // Import de la BottomNavigationView
         val navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
+        val radius = resources.getDimension(R.dimen.short_dimen);
+
+        val bottomBarBackground: MaterialShapeDrawable =
+            navigationView.background as MaterialShapeDrawable
+        bottomBarBackground.shapeAppearanceModel = bottomBarBackground
+            .shapeAppearanceModel
+            .toBuilder()
+            .setTopRightCorner(CornerFamily.ROUNDED, radius)
+            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+            .build()
+
         // Sélection de l'item "Menu" par défaut
         navigationView.menu.findItem(R.id.home_page).isChecked = true
 
+        // Chargement du fragment en fonction de la BottomNavigationView
         navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.machine_page -> {
-                    loadFragment(MachineFragment(this), R.string.machine_page_title)
+                    loadFragment(MachineFragment(), MachineRepository())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.home_page -> {
-                    loadFragment(HomeFragment(this), R.string.home_page_title)
+                    loadFragment(HomeFragment(), HomeRepository())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.coffee_page -> {
-                    loadFragment(PreparationFragment(this), R.string.coffee_page_title)
+                    loadFragment(PreparationFragment(), PreparationRepository())
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> false
             }
         }
-
     }
 
-    private fun loadFragment(fragment: Fragment, stringResource: Int) {
-        // Chargement du repository
-        // val homeRepository = HomeRepository()
-
-        // Actualisation du titre de la page
-        val pageTitle = findViewById<TextView>(R.id.page_title)
-        pageTitle.text = resources.getString(stringResource)
-        when(stringResource) {
-            R.string.machine_page_title, R.string.coffee_page_title -> pageTitle.textSize = 32.0F
-            R.string.home_page_title -> pageTitle.textSize = 36.0F
-        }
-
+    /**
+     * Chargement du fragment
+     *
+     * @param fragment Fragment à charger
+     */
+    private fun loadFragment(fragment: Fragment, repository: BaseRepository) {
         // Mise à jour des éléments affichés
-        // homeRepository.updateData {
-            // Injection du fragment dans la boîte
+        repository.updateData {
+            // Injection du fragment
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, fragment)
             transaction.addToBackStack(null)
             transaction.commit()
-        // }
+        }
     }
-
 }

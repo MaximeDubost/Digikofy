@@ -11,14 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/tv_home_page_title"
+            android:text="@string/home_page_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/BoldTitleTextStyle36"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/very_large_dimen"
+            android:paddingStart="@dimen/default_dimen"
+            android:paddingTop="@dimen/short_dimen"
+            android:layout_marginBottom="@dimen/tiny_dimen"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_create_coffee_button_dimen"
             android:text="@string/home_page_new_coffee_button"
             android:drawableStart="@drawable/ic_add_circle_outline"
             android:drawableTint="@color/blue"
-            tools:targetApi="m"
-            style="@style/NewCoffeeHomeButton"/>
+            style="@style/NewCoffeeHomeButton"
+            tools:targetApi="m" />
 
         <TextView
             android:layout_width="wrap_content"

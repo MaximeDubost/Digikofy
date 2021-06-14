@@ -12,26 +12,26 @@
     <string name="home_page_show_all_past_coffees_button">Voir toutes les préparations passées</string>
 
     <!-- Machines -->
+    <string name="machine">Machine</string>
     <string name="machine_page_title">Mes machines</string>
     <string name="machine_list_size_zero_label">Aucune machine</string>
     <string name="machine_page_add_button">Nouvelle machine</string>
-    <string-array name="machine_state">
-        <item>Disponible</item>
-        <item>Indisponible</item>
-    </string-array>
 
-    <!-- Coffees -->
-    <string name="coffee_page_title">Mes préparations</string>
-    <string name="coffee_list_size_zero_label">Aucune préparation</string>
-    <string name="coffee_page_add_button">Nouveau café</string>
-    <string name="coffee_page_saved_coffees_tab">Enregistrées</string>
-    <string name="coffee_page_next_coffees_tab">À venir</string>
-    <string name="coffee_page_past_coffees_tab">Passées</string>
-    <string name="coffee_page_plan_coffee">Mes machines</string>
+    <!-- Préparations -->
+    <string name="preparation">Préparation</string>
+    <string name="preparation_page_title">Mes préparations</string>
+    <string name="preparation_list_size_zero_label">Aucune préparation</string>
+    <string name="preparation_page_add_button">Nouvelle préparation</string>
+    <string name="preparation_page_saved_coffees_tab">Enregistrées</string>
+    <string name="preparation_page_next_coffees_tab">À venir</string>
+    <string name="preparation_page_past_coffees_tab">Passées</string>
+    <string name="preparation_page_plan_coffee">Planifier</string>
 
     <!-- Navigation -->
     <string name="bottom_home_item">Accueil</string>
     <string name="bottom_machine_item">Machines</string>
     <string name="bottom_coffee_item">Cafés</string>
+
+    <!-- Autres -->
 
 </resources>

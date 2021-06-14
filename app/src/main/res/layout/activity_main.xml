@@ -1,42 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
 
-    <LinearLayout
-        android:gravity="start"
-        android:id="@+id/page_content"
-        android:orientation="vertical"
+    <!-- FRAGMENT -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <!-- TITRE -->
-        <TextView
-            android:id="@+id/page_title"
-            style="@style/BoldTitleTextStyle36"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/default_dimen"
-            android:paddingTop="@dimen/short_dimen"/>
-
-        <!-- FRAGMENT -->
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/very_large_dimen"/>
 
     <!-- NAVIGATION -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/very_large_dimen"
         android:background="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +25,10 @@
         app:menu="@menu/bottom_navigation_menu"
         app:itemTextColor="@drawable/bottom_nav_color"
         app:itemIconTint="@drawable/bottom_nav_color"
-        android:theme="@style/BottomNavigationTheme"/>
+        android:theme="@style/BottomNavigationTheme"
+
+        android:elevation="@dimen/tiny_dimen"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_machine"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/CardStyle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@id/card_content"
+                app:layout_constraintStart_toStartOf="@id/card_content"
+                android:padding="@dimen/short_dimen">
+
+                <TextView
+                    android:id="@+id/tv_machine_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Maison - Cuisine"
+                    style="@style/MediumTitleTextStyle24"
+
+                    android:paddingBottom="@dimen/very_tiny_dimen"/>
+
+                <TextView
+                    android:id="@+id/tv_machine_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Modèle standard"
+                    style="@style/DefaultTextStyle"
+
+                    android:paddingBottom="@dimen/very_tiny_dimen"/>
+
+                <TextView
+                    android:id="@+id/tv_machine_availability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Disponible"
+
+                    style="@style/BlueTextStyle"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_use_machine"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/large_dimen"
+        android:layout_marginEnd="@dimen/medium_dimen"
+        android:backgroundTint="@color/white"
+        android:contentDescription="Utiliser"
+        android:src="@drawable/ic_play"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@id/card_content"
+        app:layout_constraintEnd_toEndOf="@id/card_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="end" />
+
+</FrameLayout>
+
+
+<!--
+<androidx.cardview.widget.CardView
+    android:id="@+id/item_machine"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/CardStyle">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@id/card_content"
+                app:layout_constraintStart_toStartOf="@id/card_content"
+                android:paddingBottom="@dimen/short_dimen">
+
+                <TextView
+                    android:id="@+id/tv_machine_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Maison - Cuisine"
+                    style="@style/BoldTitleTextStyle24"
+                    android:paddingBottom="@dimen/very_tiny_dimen"/>
+
+                <TextView
+                    android:id="@+id/tv_machine_model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Modèle standard"
+                    style="@style/MediumTitleTextStyle24"
+                    android:layout_marginStart="@dimen/default_dimen"
+                    android:paddingBottom="@dimen/very_tiny_dimen"/>
+
+                <TextView
+                    android:id="@+id/tv_machine_availability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Disponible"
+                    android:layout_marginStart="@dimen/default_dimen"
+                    style="@style/BlueTextStyle"/>
+
+            </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_use_machine"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/short_dimen"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Utiliser"
+            android:src="@drawable/ic_play"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="@id/card_content"
+            app:layout_constraintEnd_toEndOf="@id/card_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+
+-->

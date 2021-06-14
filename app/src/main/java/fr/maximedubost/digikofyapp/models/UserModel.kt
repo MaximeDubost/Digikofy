@@ -2,7 +2,7 @@ package fr.maximedubost.digikofyapp.models
 
 import java.util.*
 
-data class User (
+data class UserModel (
     val id: String,
     var email: String?,
     var password: String?,

@@ -4,8 +4,72 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/tv_coffee_page_title"
+        android:text="@string/preparation_page_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/BoldTitleTextStyle32"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/very_large_dimen"
+        android:paddingStart="@dimen/default_dimen"
+        android:paddingTop="@dimen/short_dimen"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/large_dimen"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_coffee_page_title">
+
+        <TextView
+            android:id="@+id/tv_saved_preparations_tab"
+            style="@style/BoldTitleTextStyle20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/very_tiny_dimen"
+            android:layout_marginStart="@dimen/default_dimen"
+            android:text="@string/preparation_page_saved_coffees_tab"
+            android:textColor="@color/grey" />
+
+        <TextView
+            android:id="@+id/tv_next_preparations_tab"
+            style="@style/BoldTitleTextStyle20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/very_tiny_dimen"
+            android:layout_marginStart="@dimen/default_dimen"
+            android:text="@string/preparation_page_next_coffees_tab"
+            android:textColor="@color/grey" />
+
+        <TextView
+            android:id="@+id/tv_past_preparations_tab"
+            style="@style/BoldTitleTextStyle20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/very_tiny_dimen"
+            android:layout_marginStart="@dimen/default_dimen"
+            android:text="@string/preparation_page_past_coffees_tab"
+            android:textColor="@color/grey" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_preparations"
+        android:layout_marginTop="112dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/cup_animation"
+        android:id="@+id/lav_no_preparation"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,12 +84,16 @@
         app:lottie_speed="6" />
 
     <TextView
+        android:id="@+id/tv_no_preparation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/cup_animation"
+        app:layout_constraintTop_toBottomOf="@+id/lav_no_preparation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="@dimen/short_dimen"
-        android:text="@string/coffee_list_size_zero_label"/>
+        android:text="@string/preparation_list_size_zero_label"
+        style="@style/RegularGreyTextStyle"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
