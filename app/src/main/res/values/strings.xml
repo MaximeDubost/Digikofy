@@ -32,6 +32,15 @@
     <string name="bottom_machine_item">Machines</string>
     <string name="bottom_coffee_item">Cafés</string>
 
+    <!-- Auth -->
+    <string name="auth_page_register">Inscription</string>
+    <string name="auth_page_login">Connexion</string>
+    <string name="auth_page_email_label">Email</string>
+    <string name="auth_page_password_label">Mot de passe</string>
+    <string name="auth_page_confirm_password_label">Confirmation mot de passe</string>
+    <string name="auth_page_register_button">S\'inscrire</string>
+    <string name="auth_page_login_button">Se connecter</string>
+
     <!-- Autres -->
 
 </resources>

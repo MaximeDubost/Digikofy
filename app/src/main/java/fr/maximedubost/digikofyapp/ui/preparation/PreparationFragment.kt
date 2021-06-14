@@ -1,38 +1,43 @@
-package fr.maximedubost.digikofyapp.fragments
+package fr.maximedubost.digikofyapp.ui.preparation
 
 import android.graphics.Color
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import fr.maximedubost.digikofyapp.MainActivity
 import fr.maximedubost.digikofyapp.R
-import fr.maximedubost.digikofyapp.adapters.MachineAdapter
 import fr.maximedubost.digikofyapp.adapters.PreparationAdapter
-import fr.maximedubost.digikofyapp.repositories.MachineRepository
+import fr.maximedubost.digikofyapp.databinding.MachineFragmentBinding
+import fr.maximedubost.digikofyapp.databinding.PreparationFragmentBinding
 import fr.maximedubost.digikofyapp.repositories.PreparationRepository
-import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class PreparationFragment : Fragment() {
 
-    private lateinit var rvPreparations: RecyclerView
+    companion object {
+        fun newInstance() = PreparationFragment()
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_preparation, container, false)
-        
-        val lavNoPreparation = view.findViewById<LottieAnimationView>(R.id.lav_no_preparation)
-        val tvNoPreparation = view.findViewById<TextView>(R.id.tv_no_preparation)
+    private lateinit var viewModel: PreparationViewModel
+    private lateinit var binding: PreparationFragmentBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        binding  = PreparationFragmentBinding.inflate(inflater)
+
+        val lavNoPreparation = binding.lavNoPreparation
+        val tvNoPreparation = binding.tvNoPreparation
         lavNoPreparation.visibility = if (PreparationRepository.Singleton.preparationList.size == 0) View.VISIBLE else View.GONE
         tvNoPreparation.visibility = if (PreparationRepository.Singleton.preparationList.size == 0) View.VISIBLE else View.GONE
-
-        rvPreparations = view.findViewById(R.id.rv_preparations)
+        val rvPreparations = binding.rvPreparations
         rvPreparations.adapter = PreparationAdapter(
             PreparationRepository.Singleton.preparationList.filter { it.saved },
             true,
@@ -41,19 +46,28 @@ class PreparationFragment : Fragment() {
             this.activity as MainActivity
         )
 
-        initNavBar(view)
+        initNavBar(rvPreparations)
 
-        return view
+        return binding.root
     }
 
-    fun initNavBar(view: View) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(PreparationViewModel::class.java)
+        // TODO: Use the ViewModel
+    }
+
+    /**
+     * initNavBar
+     */
+    fun initNavBar(rvPreparations: RecyclerView) {
         var isSavedPreparationsPage = true
         var isNextPreparationsPage = false
         var isPastPreparationsPage = false
 
-        val tvSavedPreparationsTab: TextView = view.findViewById(R.id.tv_saved_preparations_tab)
-        val tvNextPreparationsTab: TextView = view.findViewById(R.id.tv_next_preparations_tab)
-        val tvPastPreparationsTab: TextView = view.findViewById(R.id.tv_past_preparations_tab)
+        val tvSavedPreparationsTab: TextView = binding.tvSavedPreparationsTab
+        val tvNextPreparationsTab: TextView = binding.tvNextPreparationsTab
+        val tvPastPreparationsTab: TextView = binding.tvPastPreparationsTab
 
         tvSavedPreparationsTab.setTextColor(Color.BLACK)
 
