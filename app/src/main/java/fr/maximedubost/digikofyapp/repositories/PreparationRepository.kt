@@ -1,41 +1,55 @@
 package fr.maximedubost.digikofyapp.repositories
 
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import fr.maximedubost.digikofyapp.models.MachineModel
+import fr.maximedubost.digikofyapp.api.ApiResult
+import fr.maximedubost.digikofyapp.api.retrofitClient
+import fr.maximedubost.digikofyapp.api.safeApiCall
 import fr.maximedubost.digikofyapp.models.PreparationModel
-import fr.maximedubost.digikofyapp.repositories.MachineRepository.Singleton.machineDatabaseReference
-import fr.maximedubost.digikofyapp.repositories.PreparationRepository.Singleton.preparationDatabaseReference
-import fr.maximedubost.digikofyapp.repositories.PreparationRepository.Singleton.preparationList
+import retrofit2.Response
 
-class PreparationRepository : BaseRepository() {
+object PreparationRepository {
 
-    object Singleton {
-        val preparationDatabaseReference = FirebaseDatabase
-            .getInstance()
-            .getReference("preparation")
-
-        val preparationList = arrayListOf<PreparationModel>()
+    /**
+     * Create a preparation
+     * @param preparationModel Preparation object to create
+     * @return HTTP status code
+     */
+    suspend fun create(preparationModel: PreparationModel): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.createPreparation(preparationModel)
     }
 
-    override fun updateData(callback: () -> Unit) {
-        preparationDatabaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                preparationList.clear()
-                snapshot.children.forEach {
-                    val preparation = it.getValue(PreparationModel::class.java)
-                    if(preparation != null) preparationList.add(preparation)
-                }
-                callback()
-            }
-
-            override fun onCancelled(error: DatabaseError) {}
-
-        })
+    /**
+     * Read all preparations
+     * @return preparation list
+     */
+    suspend fun findAll(): ApiResult<Response<List<PreparationModel>>> = safeApiCall {
+        retrofitClient.findAllPreparations()
     }
 
-    fun deletePreparation(preparation: PreparationModel) =
-        machineDatabaseReference.child(preparation.id).removeValue()
+    /**
+     * Read a preparation
+     * @param id Preparation id
+     * @return Preparation object
+     */
+    suspend fun findById(id: String): ApiResult<Response<PreparationModel>> = safeApiCall {
+        retrofitClient.findPreparationById(id)
+    }
+
+    /**
+     * Update a preparation
+     * @param id Preparation id
+     * @return HTTP status code
+     */
+    suspend fun update(id: String): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.updatePreparation(id)
+    }
+
+    /**
+     * Delete a preparation
+     * @param id Preparation id
+     * @return HTTP status code
+     */
+    suspend fun delete(id: String): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.detelePreparation(id)
+    }
+
 }

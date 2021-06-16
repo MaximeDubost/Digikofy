@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.databinding.MainFragmentBinding
-import fr.maximedubost.digikofyapp.repositories.BaseRepository
-import fr.maximedubost.digikofyapp.repositories.HomeRepository
-import fr.maximedubost.digikofyapp.repositories.MachineRepository
-import fr.maximedubost.digikofyapp.repositories.PreparationRepository
+import fr.maximedubost.digikofyapp.oldrepositories.BaseRepository
+import fr.maximedubost.digikofyapp.oldrepositories.HomeRepository
+import fr.maximedubost.digikofyapp.oldrepositories.MachineRepository
+import fr.maximedubost.digikofyapp.oldrepositories.PreparationRepository
 import fr.maximedubost.digikofyapp.ui.home.HomeFragment
 import fr.maximedubost.digikofyapp.ui.machine.MachineFragment
 import fr.maximedubost.digikofyapp.ui.preparation.PreparationFragment
@@ -36,6 +39,15 @@ class MainFragment : Fragment() {
 
         binding = MainFragmentBinding.inflate(inflater)
 
+        val tvMainPageTitle = binding.tvMainPageTitle
+        val ivMainPageAction = binding.ivMainPageAction
+
+        tvMainPageTitle.text = resources.getString(R.string.home_page_title)
+        ivMainPageAction.setOnClickListener {
+            view?.findNavController()?.navigate(
+                MainFragmentDirections.actionMainFragmentToUserFragment()
+            )
+        }
 
         // Chargement du fragment par défaut
         loadFragment(HomeFragment(), HomeRepository())
@@ -53,14 +65,37 @@ class MainFragment : Fragment() {
         navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.machine_page -> {
+                    tvMainPageTitle.text = resources.getString(R.string.machine_page_title)
+                    ivMainPageAction.setOnClickListener {
+                        // TODO : Define header button action
+                    }
+                    ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
+                        requireContext(), R.drawable.ic_more
+                    ))
                     loadFragment(MachineFragment(), MachineRepository())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.home_page -> {
+                    tvMainPageTitle.text = resources.getString(R.string.home_page_title)
+                    ivMainPageAction.setOnClickListener {
+                        view?.findNavController()?.navigate(
+                            MainFragmentDirections.actionMainFragmentToUserFragment()
+                        )
+                    }
+                    ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
+                        requireContext(), R.drawable.ic_user
+                    ))
                     loadFragment(HomeFragment(), HomeRepository())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.coffee_page -> {
+                    tvMainPageTitle.text = resources.getString(R.string.preparation_page_title)
+                    ivMainPageAction.setOnClickListener {
+                        // TODO : Define header button action
+                    }
+                    ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
+                        requireContext(), R.drawable.ic_more
+                    ))
                     loadFragment(PreparationFragment(), PreparationRepository())
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -70,7 +105,6 @@ class MainFragment : Fragment() {
 
         return binding.root
     }
-
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -89,7 +123,8 @@ class MainFragment : Fragment() {
         // Mise à jour des éléments affichés
         repository.updateData {
             //Injection du fragment
-            val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            val transaction = (context as FragmentActivity)
+                .supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, fragment)
             transaction.addToBackStack(null)
             transaction.commit()

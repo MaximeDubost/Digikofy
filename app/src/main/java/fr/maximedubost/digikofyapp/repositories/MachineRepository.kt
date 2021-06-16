@@ -1,42 +1,55 @@
 package fr.maximedubost.digikofyapp.repositories
 
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import fr.maximedubost.digikofyapp.api.ApiResult
+import fr.maximedubost.digikofyapp.api.retrofitClient
+import fr.maximedubost.digikofyapp.api.safeApiCall
 import fr.maximedubost.digikofyapp.models.MachineModel
-import fr.maximedubost.digikofyapp.repositories.MachineRepository.Singleton.machineDatabaseReference
-import fr.maximedubost.digikofyapp.repositories.MachineRepository.Singleton.machineList
+import retrofit2.Response
 
-class MachineRepository : BaseRepository() {
+object MachineRepository {
 
-    object Singleton {
-        val machineDatabaseReference = FirebaseDatabase
-            .getInstance()
-            .getReference("machine")
-
-        val machineList = arrayListOf<MachineModel>()
+    /**
+     * Create a machine
+     * @param machineModel Machine object to create
+     * @return HTTP status code
+     */
+    suspend fun create(machineModel: MachineModel): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.createMachine(machineModel)
     }
 
-    override fun updateData(callback: () -> Unit) {
-        machineDatabaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                machineList.clear()
-                snapshot.children.forEach {
-                    val machine = it.getValue(MachineModel::class.java)
-                    if(machine != null) machineList.add(machine)
-                }
-                callback()
-            }
-
-            override fun onCancelled(error: DatabaseError) {}
-
-        })
+    /**
+     * Read all machines
+     * @return machine list
+     */
+    suspend fun findAll(): ApiResult<Response<List<MachineModel>>> = safeApiCall {
+        retrofitClient.findAllMachines()
     }
 
-    fun updateMachine(machine: MachineModel) =
-        machineDatabaseReference.child(machine.id).setValue(machine)
+    /**
+     * Read a machine
+     * @param id Machine id
+     * @return Machine object
+     */
+    suspend fun findById(id: String): ApiResult<Response<MachineModel>> = safeApiCall {
+        retrofitClient.findMachineById(id)
+    }
 
-    fun deleteMachine(machine: MachineModel) =
-        machineDatabaseReference.child(machine.id).removeValue()
+    /**
+     * Update a machine
+     * @param id Machine id
+     * @return HTTP status code
+     */
+    suspend fun update(id: String): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.updateMachine(id)
+    }
+
+    /**
+     * Delete a machine
+     * @param id Machine id
+     * @return HTTP status code
+     */
+    suspend fun delete(id: String): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.deteleMachine(id)
+    }
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -9,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <!--
         <TextView
             android:id="@+id/tv_machine_page_title"
             android:text="@string/machine_page_title"
@@ -21,6 +22,7 @@
             android:layout_height="@dimen/very_large_dimen"
             android:paddingStart="@dimen/default_dimen"
             android:paddingTop="@dimen/short_dimen" />
+            -->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_machines"

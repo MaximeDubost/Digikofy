@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.databinding.HomeFragmentBinding
 import fr.maximedubost.digikofyapp.databinding.RegisterFragmentBinding
+import fr.maximedubost.digikofyapp.ui.main.MainFragmentDirections
 
 class HomeFragment : Fragment() {
 
@@ -25,8 +26,6 @@ class HomeFragment : Fragment() {
     ): View {
 
         binding  = HomeFragmentBinding.inflate(inflater)
-
-        // TODO
 
         return binding.root
     }

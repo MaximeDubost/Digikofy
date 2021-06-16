@@ -15,7 +15,7 @@ import fr.maximedubost.digikofyapp.R
 
 import fr.maximedubost.digikofyapp.adapters.PreparationAdapter
 import fr.maximedubost.digikofyapp.models.PreparationModel
-import fr.maximedubost.digikofyapp.repositories.PreparationRepository
+import fr.maximedubost.digikofyapp.oldrepositories.PreparationRepository
 import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
 
 class PreparationDialog(

@@ -12,6 +12,40 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <!-- HEADER -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/tiny_dimen">
+
+            <TextView
+                android:id="@+id/tv_main_page_title"
+                android:text="title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/BoldTitleTextStyle32"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/very_large_dimen"
+                android:paddingStart="@dimen/default_dimen"
+                android:paddingEnd="@dimen/default_dimen"
+                android:paddingTop="@dimen/short_dimen"/>
+
+            <ImageView
+                android:id="@+id/iv_main_page_action"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="@dimen/medium_dimen"
+                android:layout_height="@dimen/medium_dimen"
+                android:src="@drawable/ic_user"
+                android:layout_marginTop="@dimen/short_dimen"
+                android:layout_marginEnd="@dimen/short_dimen"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!-- FRAGMENT -->
         <FrameLayout
             android:id="@+id/fragment_container"

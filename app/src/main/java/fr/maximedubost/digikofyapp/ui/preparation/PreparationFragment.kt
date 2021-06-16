@@ -9,13 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.LottieAnimationView
 import fr.maximedubost.digikofyapp.MainActivity
-import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.adapters.PreparationAdapter
-import fr.maximedubost.digikofyapp.databinding.MachineFragmentBinding
 import fr.maximedubost.digikofyapp.databinding.PreparationFragmentBinding
-import fr.maximedubost.digikofyapp.repositories.PreparationRepository
+import fr.maximedubost.digikofyapp.oldrepositories.PreparationRepository
 
 class PreparationFragment : Fragment() {
 

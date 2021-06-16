@@ -13,13 +13,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.adapters.MachineAdapter
 import fr.maximedubost.digikofyapp.models.MachineModel
-import fr.maximedubost.digikofyapp.repositories.MachineRepository
+import fr.maximedubost.digikofyapp.oldrepositories.MachineRepository
 import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
-import org.w3c.dom.Text
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 class MachineDialog(
     private val adapter: MachineAdapter,

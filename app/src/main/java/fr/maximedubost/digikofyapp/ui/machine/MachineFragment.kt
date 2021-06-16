@@ -6,15 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.LottieAnimationView
 import fr.maximedubost.digikofyapp.MainActivity
-import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.adapters.MachineAdapter
-import fr.maximedubost.digikofyapp.databinding.HomeFragmentBinding
 import fr.maximedubost.digikofyapp.databinding.MachineFragmentBinding
-import fr.maximedubost.digikofyapp.repositories.MachineRepository
+import fr.maximedubost.digikofyapp.oldrepositories.MachineRepository
 
 class MachineFragment : Fragment() {
 

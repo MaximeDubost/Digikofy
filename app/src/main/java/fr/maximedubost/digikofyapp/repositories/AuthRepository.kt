@@ -8,7 +8,7 @@ import fr.maximedubost.digikofyapp.models.LoginResponseModel
 import fr.maximedubost.digikofyapp.models.RegisterRequestModel
 import retrofit2.Response
 
-object RemoteRepository {
+object AuthRepository {
 
     /**
      * Register

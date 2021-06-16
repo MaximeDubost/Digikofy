@@ -3,15 +3,16 @@ package fr.maximedubost.digikofyapp.ui.login
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
-import com.google.firebase.auth.FirebaseAuth
 import fr.maximedubost.digikofyapp.databinding.LoginFragmentBinding
+import fr.maximedubost.digikofyapp.models.LoginResponseModel
+import fr.maximedubost.digikofyapp.session.DigikofySession
+import fr.maximedubost.digikofyapp.utils.Constants
 
 class LoginFragment : Fragment() {
 
@@ -26,6 +27,12 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        if (DigikofySession.exists(requireContext())) {
+            view?.findNavController()?.navigate(
+                LoginFragmentDirections.actionLoginFragmentToMainFragment()
+            )
+        }
 
         binding = LoginFragmentBinding.inflate(inflater)
 
@@ -63,24 +70,32 @@ class LoginFragment : Fragment() {
                     viewModel.login(email, password)
 
                     viewModel.loginResponseSuccess.observe(viewLifecycleOwner, {
-                        Log.d("SUCCESS >>>>>>>>> ", it.toString())
+                        // Log.d("SUCCESS >>>>>>>>> ", it.toString())
                         Toast.makeText(
                             context,
-                            "Connexion réussie",
+                            Constants.CONNECTION_SUCCESSED,
                             Toast.LENGTH_SHORT
                         ).show()
+
+                        DigikofySession.create(requireContext(), LoginResponseModel(
+                            it.data.body()!!.idToken,
+                            it.data.body()!!.email,
+                            it.data.body()!!.refreshToken,
+                            it.data.body()!!.expiresIn,
+                            it.data.body()!!.localId,
+                            it.data.body()!!.registered
+                        ))
 
                         view?.findNavController()?.navigate(
                             LoginFragmentDirections.actionLoginFragmentToMainFragment()
                         )
-                        // TODO : SharedPreferences
                     })
 
                     viewModel.loginResponseError.observe(viewLifecycleOwner, {
-                        Log.d("ERROR >>>>>>>>> ", it.toString())
+                        // Log.d("ERROR >>>>>>>>> ", it.toString())
                         Toast.makeText(
                             context,
-                            "Echec de la connexion",
+                            Constants.CONNECTION_FAILED,
                             Toast.LENGTH_SHORT
                         ).show()
                     })
@@ -89,6 +104,16 @@ class LoginFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (DigikofySession.exists(requireContext())) {
+            view?.findNavController()?.navigate(
+                LoginFragmentDirections.actionLoginFragmentToMainFragment()
+            )
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
