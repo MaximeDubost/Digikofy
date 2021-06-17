@@ -8,12 +8,13 @@ import fr.maximedubost.digikofyapp.repositories.AuthRepository
 import kotlinx.coroutines.launch
 
 class RegisterViewModel : ViewModel() {
-
     val registerResponseSuccess: MutableLiveData<Any> = MutableLiveData<Any>()
     val registerResponseError: MutableLiveData<Any> = MutableLiveData<Any>()
 
     /**
      * register
+     * @param email email
+     * @param password password
      */
     fun register(email: String, password: String) {
         viewModelScope.launch {

@@ -1,9 +1,11 @@
 package fr.maximedubost.digikofyapp.repositories
 
+import android.content.Context
 import fr.maximedubost.digikofyapp.api.ApiResult
 import fr.maximedubost.digikofyapp.api.retrofitClient
 import fr.maximedubost.digikofyapp.api.safeApiCall
 import fr.maximedubost.digikofyapp.models.PreparationModel
+import fr.maximedubost.digikofyapp.session.DigikofySession
 import retrofit2.Response
 
 object PreparationRepository {
@@ -13,16 +15,16 @@ object PreparationRepository {
      * @param preparationModel Preparation object to create
      * @return HTTP status code
      */
-    suspend fun create(preparationModel: PreparationModel): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.createPreparation(preparationModel)
+    suspend fun create(context: Context, preparationModel: PreparationModel): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.createPreparation(DigikofySession.getIdToken(context)!!, preparationModel)
     }
 
     /**
      * Read all preparations
      * @return preparation list
      */
-    suspend fun findAll(): ApiResult<Response<List<PreparationModel>>> = safeApiCall {
-        retrofitClient.findAllPreparations()
+    suspend fun findAll(context: Context): ApiResult<Response<List<PreparationModel>>> = safeApiCall {
+        retrofitClient.findAllPreparations(DigikofySession.getIdToken(context)!!)
     }
 
     /**
@@ -30,8 +32,8 @@ object PreparationRepository {
      * @param id Preparation id
      * @return Preparation object
      */
-    suspend fun findById(id: String): ApiResult<Response<PreparationModel>> = safeApiCall {
-        retrofitClient.findPreparationById(id)
+    suspend fun findById(context: Context, id: String): ApiResult<Response<PreparationModel>> = safeApiCall {
+        retrofitClient.findPreparationById(DigikofySession.getIdToken(context)!!, id)
     }
 
     /**
@@ -39,8 +41,8 @@ object PreparationRepository {
      * @param id Preparation id
      * @return HTTP status code
      */
-    suspend fun update(id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.updatePreparation(id)
+    suspend fun update(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.updatePreparation(DigikofySession.getIdToken(context)!!, id)
     }
 
     /**
@@ -48,8 +50,8 @@ object PreparationRepository {
      * @param id Preparation id
      * @return HTTP status code
      */
-    suspend fun delete(id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.detelePreparation(id)
+    suspend fun delete(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.detelePreparation(DigikofySession.getIdToken(context)!!, id)
     }
 
 }

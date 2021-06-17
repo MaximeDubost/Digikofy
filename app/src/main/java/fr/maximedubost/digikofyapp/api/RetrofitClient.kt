@@ -4,7 +4,8 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val BASE_URL = "http://192.168.1.14:8000/"
+// const val BASE_URL = "http://192.168.1.14:8000/"
+const val BASE_URL = "https://digikofy-api.herokuapp.com/"
 
 val retrofitClient: ApiInterface by lazy {
 

@@ -31,25 +31,57 @@ class UserFragment : Fragment() {
         binding  = UserFragmentBinding.inflate(inflater)
 
         val ivBack = binding.ivBack
-        val btnLogout = binding.btnLogout
+        val btnLogoutUser = binding.btnLogoutUser
+        val btnDeleteUser = binding.btnDeleteUser
 
         ivBack.setOnClickListener {
-            view?.findNavController()?.navigate(
-                UserFragmentDirections.actionUserFragmentToMainFragment()
-            )
+            view?.findNavController()?.popBackStack()
         }
 
-        btnLogout.setOnClickListener {
+        btnLogoutUser.setOnClickListener {
+            if(DigikofySession.exists(requireActivity().applicationContext)) {
+                viewModel.revoke(DigikofySession.getRefreshToken(requireActivity().applicationContext)!!)
+            }
+            DigikofySession.clear(requireActivity().applicationContext)
+
             Toast.makeText(
-                context,
+                requireActivity().applicationContext,
                 "Déconnecté avec succès",
                 Toast.LENGTH_SHORT
             ).show()
-            DigikofySession.clear(requireContext())
-            // TODO : faire l'appel API à /revoke
-            view?.findNavController()?.navigate(
-                UserFragmentDirections.actionUserFragmentToLoginFragment()
-            )
+
+            view?.findNavController()?.popBackStack(R.id.loginFragment, false)
+            //.navigate(
+            //    UserFragmentDirections.actionUserFragmentToLoginFragment()
+            //)
+        }
+
+        btnDeleteUser.setOnClickListener {
+            viewModel.delete(requireActivity().applicationContext)
+
+            viewModel.userResponseSuccess.observe(viewLifecycleOwner, {
+                DigikofySession.clear(requireActivity().applicationContext)
+
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Compte supprimé avec succès",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                view?.findNavController()?.popBackStack(R.id.loginFragment, false)
+                //view?.findNavController()?.navigate(
+                //    UserFragmentDirections.actionUserFragmentToLoginFragment()
+                //)
+            })
+
+            viewModel.userResponseError.observe(viewLifecycleOwner, {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Erreur lors de la suppression du comtpe",
+                    Toast.LENGTH_LONG
+                ).show()
+            })
+
         }
 
         return binding.root

@@ -34,23 +34,24 @@ class RegisterFragment : Fragment() {
         val tvLogin = binding.tvLogin
 
         tvLogin.setOnClickListener {
-            view?.findNavController()?.navigate(
+            view?.findNavController()?.popBackStack()/*
+                .navigate(
                 RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
-            )
+            )*/
         }
 
         btnRegister.setOnClickListener {
             when {
                 TextUtils.isEmpty(etRegisterEmail.text.toString().trim { it <= ' ' }) -> {
                     Toast.makeText(
-                        context,
+                        requireActivity().applicationContext,
                         "Saisissez une addresse email",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
                 TextUtils.isEmpty(etRegisterPassword.text.toString().trim { it <= ' ' }) -> {
                     Toast.makeText(
-                        context,
+                        requireActivity().applicationContext,
                         "Saisissez un mot de passe",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -64,20 +65,18 @@ class RegisterFragment : Fragment() {
                     viewModel.registerResponseSuccess.observe(viewLifecycleOwner, {
                         Log.d("SUCCESS >>>>>>>>> ", it.toString())
                         Toast.makeText(
-                            context,
+                            requireActivity().applicationContext,
                             "Inscription réussie",
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        view?.findNavController()?.navigate(
-                            RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
-                        )
+                        view?.findNavController()?.popBackStack()
                     })
 
                     viewModel.registerResponseError.observe(viewLifecycleOwner, {
                         Log.d("ERROR >>>>>>>>> ", it.toString())
                         Toast.makeText(
-                            context,
+                            requireActivity().applicationContext,
                             "Echec de l'inscription",
                             Toast.LENGTH_SHORT
                         ).show()

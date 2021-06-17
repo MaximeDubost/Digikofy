@@ -10,13 +10,14 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class LoginViewModel : ViewModel() {
-
     val loginResponseSuccess: MutableLiveData<ApiResult.Success<Response<LoginResponseModel>>> =
         MutableLiveData<ApiResult.Success<Response<LoginResponseModel>>>()
     val loginResponseError: MutableLiveData<Any> = MutableLiveData<Any>()
 
     /**
      * Login
+     * @param email email
+     * @param password password
      */
     fun login(email: String, password: String) {
         viewModelScope.launch {

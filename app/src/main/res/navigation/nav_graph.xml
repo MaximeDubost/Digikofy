@@ -21,30 +21,16 @@
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
         <action
-            android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_userFragment"
             app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="fr.maximedubost.digikofyapp.ui.register.RegisterFragment"
-        android:label="RegisterFragment" >
-        <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        android:label="RegisterFragment" />
     <fragment
         android:id="@+id/userFragment"
         android:name="fr.maximedubost.digikofyapp.ui.user.UserFragment"
         android:label="user_fragment"
-        tools:layout="@layout/user_fragment" >
-        <action
-            android:id="@+id/action_userFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
-            android:id="@+id/action_userFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/user_fragment" />
 </navigation>

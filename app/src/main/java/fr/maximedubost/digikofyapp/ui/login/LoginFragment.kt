@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        if (DigikofySession.exists(requireContext())) {
+        if (DigikofySession.isLoggedIn(requireActivity().applicationContext)) {
             view?.findNavController()?.navigate(
                 LoginFragmentDirections.actionLoginFragmentToMainFragment()
             )
@@ -51,14 +51,14 @@ class LoginFragment : Fragment() {
             when {
                 TextUtils.isEmpty(etLoginEmail.text.toString().trim { it <= ' ' }) -> {
                     Toast.makeText(
-                        context,
+                        requireActivity().applicationContext,
                         "Saisissez une addresse email",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
                 TextUtils.isEmpty(etLoginPassword.text.toString().trim { it <= ' ' }) -> {
                     Toast.makeText(
-                        context,
+                        requireActivity().applicationContext,
                         "Saisissez un mot de passe",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -72,19 +72,21 @@ class LoginFragment : Fragment() {
                     viewModel.loginResponseSuccess.observe(viewLifecycleOwner, {
                         // Log.d("SUCCESS >>>>>>>>> ", it.toString())
                         Toast.makeText(
-                            context,
+                            requireActivity().applicationContext,
                             Constants.CONNECTION_SUCCESSED,
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        DigikofySession.create(requireContext(), LoginResponseModel(
-                            it.data.body()!!.idToken,
-                            it.data.body()!!.email,
-                            it.data.body()!!.refreshToken,
-                            it.data.body()!!.expiresIn,
-                            it.data.body()!!.localId,
-                            it.data.body()!!.registered
-                        ))
+                        DigikofySession.create(requireActivity().applicationContext,
+                            LoginResponseModel(
+                                it.data.body()!!.idToken,
+                                it.data.body()!!.email,
+                                it.data.body()!!.refreshToken,
+                                it.data.body()!!.expiresIn,
+                                it.data.body()!!.localId,
+                                it.data.body()!!.registered
+                            )
+                        )
 
                         view?.findNavController()?.navigate(
                             LoginFragmentDirections.actionLoginFragmentToMainFragment()
@@ -94,11 +96,14 @@ class LoginFragment : Fragment() {
                     viewModel.loginResponseError.observe(viewLifecycleOwner, {
                         // Log.d("ERROR >>>>>>>>> ", it.toString())
                         Toast.makeText(
-                            context,
+                            requireActivity().applicationContext,
                             Constants.CONNECTION_FAILED,
                             Toast.LENGTH_SHORT
                         ).show()
                     })
+
+                    etLoginEmail.text.clear()
+                    etLoginPassword.text.clear()
                 }
             }
         }
@@ -109,7 +114,7 @@ class LoginFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        if (DigikofySession.exists(requireContext())) {
+        if (DigikofySession.exists(requireActivity().applicationContext)) {
             view?.findNavController()?.navigate(
                 LoginFragmentDirections.actionLoginFragmentToMainFragment()
             )

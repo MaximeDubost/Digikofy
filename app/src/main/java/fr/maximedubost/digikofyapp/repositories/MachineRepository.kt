@@ -1,9 +1,11 @@
 package fr.maximedubost.digikofyapp.repositories
 
+import android.content.Context
 import fr.maximedubost.digikofyapp.api.ApiResult
 import fr.maximedubost.digikofyapp.api.retrofitClient
 import fr.maximedubost.digikofyapp.api.safeApiCall
 import fr.maximedubost.digikofyapp.models.MachineModel
+import fr.maximedubost.digikofyapp.session.DigikofySession
 import retrofit2.Response
 
 object MachineRepository {
@@ -13,16 +15,16 @@ object MachineRepository {
      * @param machineModel Machine object to create
      * @return HTTP status code
      */
-    suspend fun create(machineModel: MachineModel): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.createMachine(machineModel)
+    suspend fun create(context: Context, machineModel: MachineModel): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.createMachine(DigikofySession.getIdToken(context)!!, machineModel)
     }
 
     /**
      * Read all machines
      * @return machine list
      */
-    suspend fun findAll(): ApiResult<Response<List<MachineModel>>> = safeApiCall {
-        retrofitClient.findAllMachines()
+    suspend fun findAll(context: Context): ApiResult<Response<List<MachineModel>>> = safeApiCall {
+        retrofitClient.findAllMachines(DigikofySession.getIdToken(context)!!)
     }
 
     /**
@@ -30,8 +32,8 @@ object MachineRepository {
      * @param id Machine id
      * @return Machine object
      */
-    suspend fun findById(id: String): ApiResult<Response<MachineModel>> = safeApiCall {
-        retrofitClient.findMachineById(id)
+    suspend fun findById(context: Context, id: String): ApiResult<Response<MachineModel>> = safeApiCall {
+        retrofitClient.findMachineById(DigikofySession.getIdToken(context)!!, id)
     }
 
     /**
@@ -39,8 +41,8 @@ object MachineRepository {
      * @param id Machine id
      * @return HTTP status code
      */
-    suspend fun update(id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.updateMachine(id)
+    suspend fun update(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.updateMachine(DigikofySession.getIdToken(context)!!, id)
     }
 
     /**
@@ -48,8 +50,8 @@ object MachineRepository {
      * @param id Machine id
      * @return HTTP status code
      */
-    suspend fun delete(id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.deteleMachine(id)
+    suspend fun delete(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.deteleMachine(DigikofySession.getIdToken(context)!!, id)
     }
 
 }

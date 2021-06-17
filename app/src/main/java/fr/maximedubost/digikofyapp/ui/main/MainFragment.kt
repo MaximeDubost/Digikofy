@@ -70,7 +70,7 @@ class MainFragment : Fragment() {
                         // TODO : Define header button action
                     }
                     ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
-                        requireContext(), R.drawable.ic_more
+                        requireActivity().applicationContext, R.drawable.ic_more
                     ))
                     loadFragment(MachineFragment(), MachineRepository())
                     return@setOnNavigationItemSelectedListener true
@@ -83,7 +83,7 @@ class MainFragment : Fragment() {
                         )
                     }
                     ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
-                        requireContext(), R.drawable.ic_user
+                        requireActivity().applicationContext, R.drawable.ic_user
                     ))
                     loadFragment(HomeFragment(), HomeRepository())
                     return@setOnNavigationItemSelectedListener true
@@ -94,7 +94,7 @@ class MainFragment : Fragment() {
                         // TODO : Define header button action
                     }
                     ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
-                        requireContext(), R.drawable.ic_more
+                        requireActivity().applicationContext, R.drawable.ic_more
                     ))
                     loadFragment(PreparationFragment(), PreparationRepository())
                     return@setOnNavigationItemSelectedListener true

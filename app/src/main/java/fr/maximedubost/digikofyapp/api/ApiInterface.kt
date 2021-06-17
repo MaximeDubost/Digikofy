@@ -17,60 +17,89 @@ interface ApiInterface {
     @POST("login")
     suspend fun login(@Body LoginRequestModel: LoginRequestModel): Response<LoginResponseModel>
 
+    @POST("revoke")
+    suspend fun revoke(@Body refreshToken: String): Response<Any>
+
+    @POST("refreshToken")
+    suspend fun refreshToken(@Body refreshToken: String): Response<RefreshTokenModel>
+
+    @DELETE("delete")
+    suspend fun delete(@Header("Authorization") token: String): Response<Any>
+
     /**
      * Machine
      */
 
-    @POST("machines")
-    suspend fun createMachine(@Body machineModel: MachineModel): Response<Any>
+    @POST("machine")
+    suspend fun createMachine(
+        @Header("Authorization") token: String,
+        @Body machineModel: MachineModel
+    ): Response<Any>
 
     @GET("machines")
-    suspend fun findAllMachines(): Response<List<MachineModel>>
+    suspend fun findAllMachines(
+        @Header("Authorization") token: String
+    ): Response<List<MachineModel>>
 
-    @GET("machines/{id}")
-    suspend fun findMachineById(@Path("id") id: String): Response<MachineModel>
+    @GET("machine/{id}")
+    suspend fun findMachineById(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Response<MachineModel>
 
-    @PUT("machines/{id}")
-    suspend fun updateMachine(@Path("id") id: String): Response<Any>
+    @PUT("machine/{id}")
+    suspend fun updateMachine(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Response<Any>
 
-    @DELETE("machines/{id}")
-    suspend fun deteleMachine(@Path("id") id: String): Response<Any>
+    @DELETE("machine/{id}")
+    suspend fun deteleMachine(
+        @Header("Authorization") token: String,
+        @Path("id") id: String)
+    : Response<Any>
 
     /**
      * Preparation
      */
 
-    @POST("preparations")
-    suspend fun createPreparation(@Body preparationModel: PreparationModel): Response<Any>
+    @POST("preparation")
+    suspend fun createPreparation(
+        @Header("Authorization") token: String,
+        @Body preparationModel: PreparationModel
+    ): Response<Any>
 
     @GET("preparations")
-    suspend fun findAllPreparations(): Response<List<PreparationModel>>
+    suspend fun findAllPreparations(
+        @Header("Authorization") token: String
+    ): Response<List<PreparationModel>>
 
-    @GET("preparations/{id}")
-    suspend fun findPreparationById(@Path("id") id: String): Response<PreparationModel>
+    @GET("preparation/{id}")
+    suspend fun findPreparationById(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Response<PreparationModel>
 
-    @PUT("preparations/{id}")
-    suspend fun updatePreparation(@Path("id") id: String): Response<Any>
+    @PUT("preparation/{id}")
+    suspend fun updatePreparation(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Response<Any>
 
-    @DELETE("preparations/{id}")
-    suspend fun detelePreparation(@Path("id") id: String): Response<Any>
+    @DELETE("preparation/{id}")
+    suspend fun detelePreparation(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Response<Any>
 
     /**
      * Coffee
      */
 
-    @POST("coffees")
-    suspend fun createCoffee(@Body coffeeModel: CoffeeModel): Response<Any>
-
     @GET("coffees")
     suspend fun findAllCoffees(): Response<List<CoffeeModel>>
 
-    @GET("coffees/{id}")
+    @GET("coffee/{id}")
     suspend fun findCoffeeById(@Path("id") id: String): Response<CoffeeModel>
 
-    @PUT("coffees/{id}")
-    suspend fun updateCoffee(@Path("id") id: String): Response<Any>
-
-    @DELETE("coffees/{id}")
-    suspend fun deteleCoffee(@Path("id") id: String): Response<Any>
 }

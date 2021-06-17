@@ -1,7 +1,9 @@
 package fr.maximedubost.digikofyapp.ui.preparation
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class PreparationViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+    val preparationResponseSuccess: MutableLiveData<Any> = MutableLiveData<Any>()
+    val preparationResponseError: MutableLiveData<Any> = MutableLiveData<Any>()
 }
