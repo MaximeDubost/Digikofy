@@ -73,14 +73,14 @@ class PreparationFragment : Fragment() {
             tvNextPreparationsTab.setTextColor(Color.GRAY)
             tvPastPreparationsTab.setTextColor(Color.GRAY)
             isSavedPreparationsPage = true
-            isNextPreparationsPage = false
-            isPastPreparationsPage = false
             rvPreparations.adapter = PreparationAdapter(
-                PreparationRepository.Singleton.preparationList.filter { it.saved },
-                isSavedPreparationsPage,
-                isNextPreparationsPage,
-                isPastPreparationsPage,
-                this.activity as MainActivity
+                PreparationRepository
+                    .Singleton
+                    .preparationList
+                    .filter { it.saved }
+                    .sortedBy { it.name },
+                isSavedPreparationsPage = isSavedPreparationsPage,
+                context = this.activity as MainActivity
             )
         }
 
@@ -88,15 +88,15 @@ class PreparationFragment : Fragment() {
             tvSavedPreparationsTab.setTextColor(Color.GRAY)
             tvNextPreparationsTab.setTextColor(Color.BLACK)
             tvPastPreparationsTab.setTextColor(Color.GRAY)
-            isSavedPreparationsPage = false
             isNextPreparationsPage = true
-            isPastPreparationsPage = false
             rvPreparations.adapter = PreparationAdapter(
-                PreparationRepository.Singleton.preparationList.filter { it.isFuturePreparation() },
-                isSavedPreparationsPage,
-                isNextPreparationsPage,
-                isPastPreparationsPage,
-                this.activity as MainActivity
+                PreparationRepository
+                    .Singleton
+                    .preparationList
+                    .filter { it.isFuturePreparation() }
+                    .sortedBy { it.nextTime },
+                isNextPreparationsPage = isNextPreparationsPage,
+                context = this.activity as MainActivity
             )
         }
 
@@ -104,15 +104,15 @@ class PreparationFragment : Fragment() {
             tvSavedPreparationsTab.setTextColor(Color.GRAY)
             tvNextPreparationsTab.setTextColor(Color.GRAY)
             tvPastPreparationsTab.setTextColor(Color.BLACK)
-            isSavedPreparationsPage = false
-            isNextPreparationsPage = false
             isPastPreparationsPage = true
             rvPreparations.adapter = PreparationAdapter(
-                PreparationRepository.Singleton.preparationList.filter { it.lastTime != null },
-                isSavedPreparationsPage,
-                isNextPreparationsPage,
-                isPastPreparationsPage,
-                this.activity as MainActivity
+                PreparationRepository
+                    .Singleton
+                    .preparationList
+                    .filter { it.lastTime != null }
+                    .sortedByDescending { it.lastTime },
+                isPastPreparationsPage = isPastPreparationsPage,
+                context = this.activity as MainActivity
             )
         }
 

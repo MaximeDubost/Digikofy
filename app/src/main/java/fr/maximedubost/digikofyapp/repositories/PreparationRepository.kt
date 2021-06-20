@@ -16,7 +16,7 @@ object PreparationRepository {
      * @return HTTP status code
      */
     suspend fun create(context: Context, preparationModel: PreparationModel): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.createPreparation(DigikofySession.getIdToken(context)!!, preparationModel)
+        retrofitClient.createPreparation("Bearer ${DigikofySession.getIdToken(context)!!}", preparationModel)
     }
 
     /**
@@ -24,7 +24,7 @@ object PreparationRepository {
      * @return preparation list
      */
     suspend fun findAll(context: Context): ApiResult<Response<List<PreparationModel>>> = safeApiCall {
-        retrofitClient.findAllPreparations(DigikofySession.getIdToken(context)!!)
+        retrofitClient.findAllPreparations("Bearer ${DigikofySession.getIdToken(context)!!}")
     }
 
     /**
@@ -33,7 +33,7 @@ object PreparationRepository {
      * @return Preparation object
      */
     suspend fun findById(context: Context, id: String): ApiResult<Response<PreparationModel>> = safeApiCall {
-        retrofitClient.findPreparationById(DigikofySession.getIdToken(context)!!, id)
+        retrofitClient.findPreparationById("Bearer ${DigikofySession.getIdToken(context)!!}", id)
     }
 
     /**
@@ -42,7 +42,7 @@ object PreparationRepository {
      * @return HTTP status code
      */
     suspend fun update(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.updatePreparation(DigikofySession.getIdToken(context)!!, id)
+        retrofitClient.updatePreparation("Bearer ${DigikofySession.getIdToken(context)!!}", id)
     }
 
     /**
@@ -51,7 +51,7 @@ object PreparationRepository {
      * @return HTTP status code
      */
     suspend fun delete(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.detelePreparation(DigikofySession.getIdToken(context)!!, id)
+        retrofitClient.detelePreparation("Bearer ${DigikofySession.getIdToken(context)!!}", id)
     }
 
 }

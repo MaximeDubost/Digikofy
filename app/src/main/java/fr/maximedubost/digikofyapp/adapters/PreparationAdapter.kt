@@ -15,9 +15,9 @@ import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
 
 class PreparationAdapter(
     private val preparationList: List<PreparationModel>,
-    private val isSavedPreparationsPage: Boolean,
-    private val isNextPreparationsPage: Boolean,
-    private val isPastPreparationsPage: Boolean,
+    private val isSavedPreparationsPage: Boolean = false,
+    private val isNextPreparationsPage: Boolean = false,
+    private val isPastPreparationsPage: Boolean = false,
     val context: MainActivity
 ) : RecyclerView.Adapter<PreparationAdapter.ViewHolder>(){
     class ViewHolder (view: View): RecyclerView.ViewHolder(view) {

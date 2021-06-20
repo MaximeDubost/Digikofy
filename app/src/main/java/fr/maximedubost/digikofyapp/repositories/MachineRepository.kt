@@ -16,7 +16,7 @@ object MachineRepository {
      * @return HTTP status code
      */
     suspend fun create(context: Context, machineModel: MachineModel): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.createMachine(DigikofySession.getIdToken(context)!!, machineModel)
+        retrofitClient.createMachine("Bearer ${DigikofySession.getIdToken(context)!!}", machineModel)
     }
 
     /**
@@ -24,7 +24,7 @@ object MachineRepository {
      * @return machine list
      */
     suspend fun findAll(context: Context): ApiResult<Response<List<MachineModel>>> = safeApiCall {
-        retrofitClient.findAllMachines(DigikofySession.getIdToken(context)!!)
+        retrofitClient.findAllMachines("Bearer ${DigikofySession.getIdToken(context)!!}")
     }
 
     /**
@@ -33,7 +33,7 @@ object MachineRepository {
      * @return Machine object
      */
     suspend fun findById(context: Context, id: String): ApiResult<Response<MachineModel>> = safeApiCall {
-        retrofitClient.findMachineById(DigikofySession.getIdToken(context)!!, id)
+        retrofitClient.findMachineById("Bearer ${DigikofySession.getIdToken(context)!!}", id)
     }
 
     /**
@@ -42,7 +42,7 @@ object MachineRepository {
      * @return HTTP status code
      */
     suspend fun update(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.updateMachine(DigikofySession.getIdToken(context)!!, id)
+        retrofitClient.updateMachine("Bearer ${DigikofySession.getIdToken(context)!!}", id)
     }
 
     /**
@@ -51,7 +51,7 @@ object MachineRepository {
      * @return HTTP status code
      */
     suspend fun delete(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.deteleMachine(DigikofySession.getIdToken(context)!!, id)
+        retrofitClient.deteleMachine("Bearer ${DigikofySession.getIdToken(context)!!}", id)
     }
 
 }

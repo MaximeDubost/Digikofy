@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class PreparationModel (
-    val id: String = UUID.randomUUID().toString(),
+    val id: String = UUID.randomUUID().toString().substring(20),
     var coffee: CoffeeModel = CoffeeModel(UUID.randomUUID().toString(), "Café par défaut", "Aucune description"),
     var saved: Boolean = false,
     var nextTime: String = "0001-01-01T00:00:00Z",

@@ -33,12 +33,7 @@ class RegisterFragment : Fragment() {
         val btnRegister = binding.btnRegister
         val tvLogin = binding.tvLogin
 
-        tvLogin.setOnClickListener {
-            view?.findNavController()?.popBackStack()/*
-                .navigate(
-                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
-            )*/
-        }
+        tvLogin.setOnClickListener { view?.findNavController()?.popBackStack() }
 
         btnRegister.setOnClickListener {
             when {
