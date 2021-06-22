@@ -9,10 +9,10 @@ import java.util.*
 data class MachineModel (
     val id: String = UUID.randomUUID().toString().substring(20),
     var name: String = UUID.randomUUID().toString().substring(20),
-    val type: Int = MachineType.STANDARD.ordinal,
-    var state: Int = MachineState.UNAVAILABLE.ordinal,
-    val creationDate: String = LocalDateTime.now().toString(),
-    var lastUpdate: String = LocalDateTime.now().toString(),
+    val type: Int? = MachineType.STANDARD.ordinal,
+    var state: Int? = MachineState.UNAVAILABLE.ordinal,
+    val creationDate: String? = LocalDateTime.now().toString(),
+    var lastUpdate: String? = LocalDateTime.now().toString(),
 ) {
 
     companion object {

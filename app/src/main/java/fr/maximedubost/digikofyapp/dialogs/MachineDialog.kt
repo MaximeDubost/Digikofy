@@ -31,8 +31,8 @@ class MachineDialog(
         findViewById<TextView>(R.id.tv_detail_machine_name).text = machine.name
         findViewById<TextView>(R.id.tv_detail_machine_type).text = machine.typeToString()
         findViewById<TextView>(R.id.tv_detail_machine_state).text = machine.stateToString()
-        findViewById<TextView>(R.id.tv_detail_machine_creation_date).text = StringDateTimeFormatter.from(machine.creationDate)
-        findViewById<TextView>(R.id.tv_detail_machine_last_update).text = StringDateTimeFormatter.from(machine.lastUpdate)
+        findViewById<TextView>(R.id.tv_detail_machine_creation_date).text = StringDateTimeFormatter.from(machine.creationDate!!)
+        findViewById<TextView>(R.id.tv_detail_machine_last_update).text = StringDateTimeFormatter.from(machine.lastUpdate!!)
 
         findViewById<ImageView>(R.id.iv_close_machine_dialog).setOnClickListener { dismiss() }
         findViewById<Button>(R.id.btn_machine_dialog_use).setOnClickListener {

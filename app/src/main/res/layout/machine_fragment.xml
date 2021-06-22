@@ -62,5 +62,28 @@
             android:text="@string/machine_list_size_zero_label"
             style="@style/RegularGreyTextStyle" />
 
+        <TextView
+            android:id="@+id/tv_error_machine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/lav_no_machine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/short_dimen"
+            android:text="Impossible d'afficher les machines"
+            style="@style/RegularGreyTextStyle" />
+
+        <RelativeLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

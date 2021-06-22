@@ -42,5 +42,9 @@
     <string name="auth_page_login_button">Se connecter</string>
 
     <!-- Autres -->
+    <string-array name="machine_types">
+        <item>Standard</item>
+        <item>Entreprise</item>
+    </string-array>
 
 </resources>

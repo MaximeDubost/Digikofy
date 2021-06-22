@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_mainFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createMachineFragment"
+            app:destination="@id/createMachineFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -33,4 +36,9 @@
         android:name="fr.maximedubost.digikofyapp.ui.user.UserFragment"
         android:label="user_fragment"
         tools:layout="@layout/user_fragment" />
+    <fragment
+        android:id="@+id/createMachineFragment"
+        android:name="fr.maximedubost.digikofyapp.ui.machine.CreateMachineFragment"
+        android:label="create_machine_fragment"
+        tools:layout="@layout/create_machine_fragment" />
 </navigation>

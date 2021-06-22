@@ -3,12 +3,14 @@ package fr.maximedubost.digikofyapp.ui.login
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.google.common.base.Strings
 import fr.maximedubost.digikofyapp.databinding.LoginFragmentBinding
 import fr.maximedubost.digikofyapp.models.LoginResponseModel
 import fr.maximedubost.digikofyapp.session.DigikofySession
@@ -27,7 +29,6 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         if (DigikofySession.isLoggedIn(requireActivity().applicationContext)) {
             view?.findNavController()?.navigate(
                 LoginFragmentDirections.actionLoginFragmentToMainFragment()
@@ -113,6 +114,7 @@ class LoginFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        Log.d(">>>>>>>>>>>>> Resume F", "Resume F")
 
         if (DigikofySession.exists(requireActivity().applicationContext)) {
             view?.findNavController()?.navigate(

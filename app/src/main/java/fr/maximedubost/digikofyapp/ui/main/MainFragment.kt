@@ -1,6 +1,7 @@
 package fr.maximedubost.digikofyapp.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        Log.d("######## MainFragment", "onCreateView()")
+
         binding = MainFragmentBinding.inflate(inflater)
 
         val tvMainPageTitle = binding.tvMainPageTitle
@@ -67,10 +70,13 @@ class MainFragment : Fragment() {
                 R.id.machine_page -> {
                     tvMainPageTitle.text = resources.getString(R.string.machine_page_title)
                     ivMainPageAction.setOnClickListener {
-                        // TODO : Define header button action
+                        Log.d("######## MainFragment", "actionMainFragmentToCreateMachineFragment()")
+                        view?.findNavController()?.navigate(
+                            MainFragmentDirections.actionMainFragmentToCreateMachineFragment()
+                        )
                     }
                     ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
-                        requireActivity().applicationContext, R.drawable.ic_more
+                        requireActivity().applicationContext, R.drawable.ic_add
                     ))
                     loadFragment(MachineFragment(), MachineRepository())
                     return@setOnNavigationItemSelectedListener true
@@ -120,15 +126,16 @@ class MainFragment : Fragment() {
      * @param fragment Fragment à charger
      */
     private fun loadFragment(fragment: Fragment, repository: BaseRepository) {
+        Log.d("######## MainFragment", "loadFragment()")
         // Mise à jour des éléments affichés
-        repository.updateData {
+        // repository.updateData {
             //Injection du fragment
             val transaction = (context as FragmentActivity)
                 .supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, fragment)
             transaction.addToBackStack(null)
             transaction.commit()
-        }
+        // }
     }
 
     /**

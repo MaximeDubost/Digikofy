@@ -37,6 +37,19 @@ class UserFragment : Fragment() {
         val btnLogoutUser = binding.btnLogoutUser
         val btnDeleteUser = binding.btnDeleteUser
 
+        val test1 = binding.test1
+        val test2 = binding.test2
+        val test3 = binding.test3
+        val test4 = binding.test4
+
+        test1.text = DigikofySession.getEmail(requireActivity().applicationContext)
+        test2.text = DigikofySession.getIdToken(requireActivity().applicationContext)?.substring(0, 16)
+        test3.text = DigikofySession.getRefreshToken(requireActivity().applicationContext)?.substring(0, 16)
+        test4.text = DigikofySession.exists(requireActivity().applicationContext).toString()
+
+        Log.d("TOKEN >>>>>>>>", DigikofySession.getIdToken(requireActivity().applicationContext)?.substring(0, 16).toString())
+
+
         ivBack.setOnClickListener {
             view?.findNavController()?.popBackStack()
         }
