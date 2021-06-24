@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.maximedubost.digikofyapp.api.ApiResult
-import fr.maximedubost.digikofyapp.models.LoginResponseModel
 import fr.maximedubost.digikofyapp.models.RefreshTokenModel
 import fr.maximedubost.digikofyapp.repositories.AuthRepository
 import kotlinx.coroutines.launch
@@ -21,7 +20,7 @@ class MainViewModel : ViewModel() {
      */
     fun refreshToken(refreshToken: String) {
         viewModelScope.launch {
-            when (val result = AuthRepository.refreshToken(refreshToken)) {
+            when (val result = AuthRepository.refreshToken(hashMapOf("refresh_token" to refreshToken))) {
                 is ApiResult.Success -> mainResponseSuccess.postValue(result)
                 is ApiResult.Error -> mainResponseError.postValue(result.exception)
             }

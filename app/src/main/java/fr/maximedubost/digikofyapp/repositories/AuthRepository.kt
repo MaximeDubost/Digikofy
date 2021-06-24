@@ -5,10 +5,7 @@ import fr.maximedubost.digikofyapp.MainActivity
 import fr.maximedubost.digikofyapp.api.ApiResult
 import fr.maximedubost.digikofyapp.api.retrofitClient
 import fr.maximedubost.digikofyapp.api.safeApiCall
-import fr.maximedubost.digikofyapp.models.LoginRequestModel
-import fr.maximedubost.digikofyapp.models.LoginResponseModel
-import fr.maximedubost.digikofyapp.models.RefreshTokenModel
-import fr.maximedubost.digikofyapp.models.RegisterRequestModel
+import fr.maximedubost.digikofyapp.models.*
 import fr.maximedubost.digikofyapp.session.DigikofySession
 import retrofit2.Response
 import retrofit2.http.Body
@@ -34,14 +31,14 @@ object AuthRepository {
     /**
      * Revoke
      */
-    suspend fun revoke(refreshToken: String): ApiResult<Any> = safeApiCall {
+    suspend fun revoke(refreshToken: HashMap<String,String>): ApiResult<Any> = safeApiCall {
         retrofitClient.revoke(refreshToken)
     }
 
     /**
      * RefreshToken
      */
-    suspend fun refreshToken(refreshToken: String): ApiResult<Response<RefreshTokenModel>> = safeApiCall {
+    suspend fun refreshToken(refreshToken: HashMap<String,String>): ApiResult<Response<RefreshTokenModel>> = safeApiCall {
         retrofitClient.refreshToken(refreshToken)
     }
 

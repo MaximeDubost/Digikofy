@@ -18,7 +18,7 @@ class UserViewModel : ViewModel() {
      */
     fun revoke(refreshToken: String) {
         viewModelScope.launch {
-            when (val result = AuthRepository.revoke(refreshToken)) {
+            when (val result = AuthRepository.revoke(hashMapOf("refresh_token" to refreshToken))) {
                 is ApiResult.Success -> userResponseSuccess.postValue(result)
                 is ApiResult.Error -> userResponseError.postValue(result.exception)
             }

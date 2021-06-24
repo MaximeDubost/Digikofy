@@ -1,7 +1,6 @@
 package fr.maximedubost.digikofyapp.session
 
 import android.content.Context
-import android.content.SharedPreferences
 import fr.maximedubost.digikofyapp.models.LoginResponseModel
 
 class DigikofySession {
@@ -90,24 +89,25 @@ class DigikofySession {
          * @return true if session exists, false otherwise
          */
         fun exists(context: Context): Boolean =
+
             context
                 .getSharedPreferences(SESSION, 0)
-                .getString(EMAIL, null) != null &&
+                .contains(EMAIL) &&
             context
                 .getSharedPreferences(SESSION, 0)
-                .getString(EXPIRES_IN, null) != null &&
+                .contains(EXPIRES_IN) &&
             context
                 .getSharedPreferences(SESSION, 0)
-                .getString(ID_TOKEN, null) != null &&
+                .contains(ID_TOKEN) &&
             context
                 .getSharedPreferences(SESSION, 0)
-                .getString(LOCAL_ID, null) != null &&
+                .contains(LOCAL_ID) &&
             context
                 .getSharedPreferences(SESSION, 0)
-                .getString(REFRESH_TOKEN, null) != null &&
+                .contains(REFRESH_TOKEN) &&
             context
                 .getSharedPreferences(SESSION, 0)
-                .getBoolean(REGISTERED, false)
+                .contains(REGISTERED)
 
         /**
          * Get email

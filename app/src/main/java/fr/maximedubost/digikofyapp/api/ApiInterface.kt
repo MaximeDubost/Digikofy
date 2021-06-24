@@ -18,10 +18,10 @@ interface ApiInterface {
     suspend fun login(@Body LoginRequestModel: LoginRequestModel): Response<LoginResponseModel>
 
     @POST("revoke")
-    suspend fun revoke(@Body refreshToken: String): Response<Any>
+    suspend fun revoke(@Body refresh_token: HashMap<String,String>): Response<Any>
 
     @POST("refreshToken")
-    suspend fun refreshToken(@Body refreshToken: String): Response<RefreshTokenModel>
+    suspend fun refreshToken(@Body refresh_token: HashMap<String,String>): Response<RefreshTokenModel>
 
     @DELETE("delete")
     suspend fun delete(@Header("Authorization") token: String): Response<Any>
