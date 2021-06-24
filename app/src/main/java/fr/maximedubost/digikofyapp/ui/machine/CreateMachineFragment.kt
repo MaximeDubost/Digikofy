@@ -15,10 +15,6 @@ import androidx.navigation.findNavController
 import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.databinding.CreateMachineFragmentBinding
 import fr.maximedubost.digikofyapp.models.MachineModel
-import fr.maximedubost.digikofyapp.utils.Constants
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.*
 
 class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -26,7 +22,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
         fun newInstance() = CreateMachineFragment()
     }
 
-    private lateinit var viewModel: CreateMachineViewModel
+    private lateinit var viewModel: MachineViewModel
     private lateinit var binding: CreateMachineFragmentBinding
 
     override fun onCreateView(
@@ -40,7 +36,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val btnCreateMachine = binding.btnCreateMachine
         val etMachineId = binding.etMachineId
         val etMachineName = binding.etMachineName
-        val ivScanMachine = binding.ivScanMachine
+        // val ivScanMachine = binding.ivScanMachine
         val spnMachineType = binding.spnMachineType
 
         ivBack.setOnClickListener {
@@ -90,7 +86,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         )
                     )
 
-                    viewModel.createMachineResponseSuccess.observe(viewLifecycleOwner, {
+                    viewModel.machineCreateResponseSuccess.observe(viewLifecycleOwner, {
                         Toast.makeText(
                             requireActivity().applicationContext,
                             "Machine synchronysée avec succès",
@@ -101,7 +97,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
                     })
 
-                    viewModel.createMachineResponseError.observe(viewLifecycleOwner, {
+                    viewModel.machineCreateResponseError.observe(viewLifecycleOwner, {
                         Toast.makeText(
                             requireActivity().applicationContext,
                             "Echec de la synchronysation de la machine",
@@ -118,7 +114,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CreateMachineViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

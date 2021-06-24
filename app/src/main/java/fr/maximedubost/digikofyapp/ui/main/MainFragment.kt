@@ -22,7 +22,9 @@ import fr.maximedubost.digikofyapp.oldrepositories.MachineRepository
 import fr.maximedubost.digikofyapp.oldrepositories.PreparationRepository
 import fr.maximedubost.digikofyapp.ui.home.HomeFragment
 import fr.maximedubost.digikofyapp.ui.machine.MachineFragment
+import fr.maximedubost.digikofyapp.ui.machine.MachineViewModel
 import fr.maximedubost.digikofyapp.ui.preparation.PreparationFragment
+import fr.maximedubost.digikofyapp.ui.preparation.PreparationViewModel
 
 class MainFragment : Fragment() {
 
@@ -30,7 +32,9 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var machineViewModel: MachineViewModel
+    private lateinit var preparationViewModel: PreparationViewModel
     private lateinit var binding: MainFragmentBinding
 
     override fun onCreateView(
@@ -115,8 +119,11 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        machineViewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
+        preparationViewModel = ViewModelProvider(this).get(PreparationViewModel::class.java)
+
+
     }
 
 

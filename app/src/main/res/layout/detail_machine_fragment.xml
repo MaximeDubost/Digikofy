@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.user.UserFragment">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/very_large_dimen"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/tiny_dimen">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/medium_dimen"
+                android:layout_height="@dimen/medium_dimen"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/short_dimen"
+                android:layout_marginStart="@dimen/short_dimen" />
+
+            <TextView
+                style="@style/BoldTitleTextStyle24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="machine name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_action"
+                app:layout_constraintStart_toEndOf="@+id/iv_back"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="@dimen/short_dimen" />
+
+            <ImageView
+                android:id="@+id/iv_action"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="@dimen/medium_dimen"
+                android:layout_height="@dimen/medium_dimen"
+                android:layout_marginTop="@dimen/short_dimen"
+                android:layout_marginEnd="@dimen/short_dimen" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/short_dimen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+
+            <TextView
+                android:id="@+id/tv_detail_machine_name"
+                style="@style/BoldTitleTextStyle24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/very_tiny_dimen"/>
+
+            <TextView
+                android:id="@+id/tv_detail_machine_type"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_dimen"
+                android:paddingBottom="@dimen/very_tiny_dimen"/>
+
+            <TextView
+                android:id="@+id/tv_detail_machine_state"
+                style="@style/BlueTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_dimen"
+                android:paddingBottom="@dimen/very_tiny_dimen"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/short_dimen"
+                android:layout_marginBottom="@dimen/tiny_dimen"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_detail_machine_creation_date_label"
+                        style="@style/RegularGreyTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_dimen"
+                        android:paddingBottom="@dimen/very_tiny_dimen"
+                        android:text="Ajoutée le" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_machine_creation_date"
+                        style="@style/RegularGreyTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/very_tiny_dimen"
+                        android:paddingBottom="@dimen/very_tiny_dimen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_detail_machine_last_update_label"
+                        style="@style/RegularGreyTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_dimen"
+                        android:paddingBottom="@dimen/very_tiny_dimen"
+                        android:text="Modifiée le" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_machine_last_update"
+                        style="@style/RegularGreyTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/very_tiny_dimen"
+                        android:paddingBottom="@dimen/very_tiny_dimen"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_use_machine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/DefaultButton"
+            android:layout_marginTop="@dimen/medium_dimen"
+            android:text="Utiliser" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_machine_dialog_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/short_dimen"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Utiliser"
+            android:src="@drawable/ic_delete"
+            app:backgroundTint="@color/red"
+            app:fabSize="mini"
+            app:layout_constraintStart_toEndOf="@+id/btn_use_machine"
+            app:layout_constraintTop_toTopOf="@+id/btn_use_machine" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

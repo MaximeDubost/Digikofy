@@ -41,8 +41,8 @@ object MachineRepository {
      * @param id Machine id
      * @return HTTP status code
      */
-    suspend fun update(context: Context, id: String): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.updateMachine("Bearer ${DigikofySession.getIdToken(context)!!}", id)
+    suspend fun update(context: Context, machineModel: MachineModel): ApiResult<Response<Any>> = safeApiCall {
+        retrofitClient.updateMachine("Bearer ${DigikofySession.getIdToken(context)!!}", machineModel)
     }
 
     /**

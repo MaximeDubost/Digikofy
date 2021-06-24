@@ -21,6 +21,19 @@ data class MachineModel (
         const val MACHINE_STATE_AVAILABLE = "Disponible"
         const val MACHINE_STATE_IN_PROCESS = "En cours d'utilisation"
         const val MACHINE_STATE_UNAVAILABLE = "Indisponible"
+
+        fun typeToString(type: Int) = when(type) {
+            0 -> MACHINE_TYPE_STANDARD
+            1 -> MACHINE_TYPE_ENTERPRISE
+            else -> MACHINE_TYPE_STANDARD
+        }
+
+        fun stateToString(state: Int) = when(state) {
+            0 -> MACHINE_STATE_AVAILABLE
+            1 -> MACHINE_STATE_IN_PROCESS
+            2 -> MACHINE_STATE_UNAVAILABLE
+            else -> MACHINE_STATE_UNAVAILABLE
+        }
     }
 
     fun typeToString() = when(this.type) {

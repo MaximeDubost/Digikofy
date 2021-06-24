@@ -1,11 +1,11 @@
 package fr.maximedubost.digikofyapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-
 import fr.maximedubost.digikofyapp.databinding.ActivityMainBinding
 import fr.maximedubost.digikofyapp.session.DigikofySession
 import fr.maximedubost.digikofyapp.ui.main.MainViewModel
@@ -17,8 +17,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var binding: ActivityMainBinding
 
+    companion object {
+        lateinit var appContext: Context
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        appContext = applicationContext
+
         Log.d(">>>>>>>>>>>>> Create", "Create")
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)

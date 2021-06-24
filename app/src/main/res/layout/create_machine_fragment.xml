@@ -1,124 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.user.UserFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/very_large_dimen"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/tiny_dimen">
+        android:layout_height="match_parent"
+        tools:context=".ui.user.UserFragment">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="@dimen/medium_dimen"
-            android:layout_height="@dimen/medium_dimen"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/very_large_dimen"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/short_dimen"
-            android:layout_marginStart="@dimen/short_dimen"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/tiny_dimen">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/medium_dimen"
+                android:layout_height="@dimen/medium_dimen"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/short_dimen"
+                android:layout_marginStart="@dimen/short_dimen" />
+
+            <TextView
+                style="@style/BoldTitleTextStyle24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nouvelle machine"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_action"
+                app:layout_constraintStart_toEndOf="@+id/iv_back"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="@dimen/short_dimen" />
+
+            <ImageView
+                android:id="@+id/iv_action"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="@dimen/medium_dimen"
+                android:layout_height="@dimen/medium_dimen"
+                android:src="@drawable/ic_qr"
+                android:layout_marginTop="@dimen/short_dimen"
+                android:layout_marginEnd="@dimen/short_dimen" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_machine_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/short_dimen_text"
+            android:layout_marginStart="@dimen/short_dimen_text"
+            android:layout_marginEnd="@dimen/short_dimen_text"
+            android:hint="Identifiant de machine"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <EditText
+                android:id="@+id/et_machine_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_machine_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/short_dimen_text"
+            android:layout_marginStart="@dimen/short_dimen_text"
+            android:layout_marginEnd="@dimen/short_dimen_text"
+            android:hint="Nom de machine"
+            app:layout_constraintTop_toBottomOf="@+id/til_machine_id"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <EditText
+                android:id="@+id/et_machine_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            style="@style/BoldTitleTextStyle24"
+            android:id="@+id/tv_machine_type"
+            android:text="Type de machine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_dimen"
+            android:layout_marginStart="@dimen/short_dimen_text"
+            android:layout_marginEnd="@dimen/short_dimen_text"
+            app:layout_constraintTop_toBottomOf="@+id/til_machine_name"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spn_machine_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tiny_dimen"
+            android:layout_marginStart="@dimen/short_dimen_text"
+            android:layout_marginEnd="@dimen/short_dimen_text"
+            app:layout_constraintTop_toBottomOf="@+id/tv_machine_type"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_create_machine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nouvelle machine"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_scan_machine"
-            app:layout_constraintStart_toEndOf="@+id/iv_back"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="@dimen/short_dimen"/>
-
-        <ImageView
-            android:id="@+id/iv_scan_machine"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spn_machine_type"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="@dimen/medium_dimen"
-            android:layout_height="@dimen/medium_dimen"
-            android:src="@drawable/ic_qr"
-            android:layout_marginTop="@dimen/short_dimen"
-            android:layout_marginEnd="@dimen/short_dimen"/>
+            style="@style/DefaultButton"
+            android:layout_marginTop="@dimen/medium_dimen"
+            android:text="Synchronyser" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_machine_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/short_dimen_text"
-        android:layout_marginStart="@dimen/short_dimen_text"
-        android:layout_marginEnd="@dimen/short_dimen_text"
-        android:hint="Identifiant de machine"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <EditText
-            android:id="@+id/et_machine_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_machine_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/short_dimen_text"
-        android:layout_marginStart="@dimen/short_dimen_text"
-        android:layout_marginEnd="@dimen/short_dimen_text"
-        android:hint="Nom de machine"
-        app:layout_constraintTop_toBottomOf="@+id/til_machine_id"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <EditText
-            android:id="@+id/et_machine_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/tv_machine_type"
-        android:text="Type de machine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_dimen"
-        android:layout_marginStart="@dimen/short_dimen_text"
-        android:layout_marginEnd="@dimen/short_dimen_text"
-        app:layout_constraintTop_toBottomOf="@+id/til_machine_name"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <Spinner
-        android:id="@+id/spn_machine_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/tiny_dimen"
-        android:layout_marginStart="@dimen/short_dimen_text"
-        android:layout_marginEnd="@dimen/short_dimen_text"
-        app:layout_constraintTop_toBottomOf="@+id/tv_machine_type"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <Button
-        android:id="@+id/btn_create_machine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/spn_machine_type"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/DefaultButton"
-        android:layout_marginTop="@dimen/medium_dimen"
-        android:text="Synchronyser"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

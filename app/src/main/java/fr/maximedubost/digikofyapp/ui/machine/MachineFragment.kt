@@ -7,10 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import fr.maximedubost.digikofyapp.MainActivity
 import fr.maximedubost.digikofyapp.adapters.MachineAdapter
 import fr.maximedubost.digikofyapp.databinding.MachineFragmentBinding
-import fr.maximedubost.digikofyapp.oldrepositories.MachineRepository
+import fr.maximedubost.digikofyapp.ui.main.MainFragment
+import fr.maximedubost.digikofyapp.ui.main.MainFragmentDirections
 
 class MachineFragment : Fragment() {
 
@@ -25,9 +29,10 @@ class MachineFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         Log.d("onCreateView >>>>>>>>", "")
         viewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
-        binding  = MachineFragmentBinding.inflate(inflater)
+        binding = MachineFragmentBinding.inflate(inflater)
 
         val loading = binding.loading
         val lavNoMachine = binding.lavNoMachine
@@ -44,9 +49,16 @@ class MachineFragment : Fragment() {
 
         viewModel.findAll(requireActivity().applicationContext)
 
-        viewModel.machineResponseSuccess.observe(viewLifecycleOwner, {
+        viewModel.machineFindAllResponseSuccess.observe(viewLifecycleOwner, {
             Log.d("SUCCESS >>>>>>>>", it.data.body().toString())
-            rvMachines.adapter = MachineAdapter(it.data.body()!!, this.activity as MainActivity)
+
+            rvMachines.adapter = MachineAdapter({ machineId ->
+
+                view?.findNavController()?.navigate(
+                    MainFragmentDirections.actionMainFragmentToDetailMachineFragment(machineId)
+                )
+
+            }, it.data.body()!!, this.activity as MainActivity)
 
             loading.visibility = View.GONE
             lavNoMachine.visibility = if (it.data.body()!!.isEmpty()) View.VISIBLE else View.GONE
@@ -54,9 +66,9 @@ class MachineFragment : Fragment() {
             tvErrorMachine.visibility = View.GONE
         })
 
-        viewModel.machineResponseError.observe(viewLifecycleOwner, {
+        viewModel.machineFindAllResponseError.observe(viewLifecycleOwner, {
             Log.d("ERROR >>>>>>>>", it.toString())
-            rvMachines.adapter = MachineAdapter(listOf(), this.activity as MainActivity)
+            rvMachines.adapter = MachineAdapter({}, listOf(), this.activity as MainActivity)
 
             loading.visibility = View.GONE
             lavNoMachine.visibility = View.GONE
