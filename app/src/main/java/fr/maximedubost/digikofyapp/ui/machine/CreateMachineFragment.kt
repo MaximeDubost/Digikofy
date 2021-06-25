@@ -1,5 +1,8 @@
 package fr.maximedubost.digikofyapp.ui.machine
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,9 +15,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.google.gson.Gson
 import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.databinding.CreateMachineFragmentBinding
+import fr.maximedubost.digikofyapp.enums.MachineType
 import fr.maximedubost.digikofyapp.models.MachineModel
+import kotlin.reflect.typeOf
 
 class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -36,7 +42,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val btnCreateMachine = binding.btnCreateMachine
         val etMachineId = binding.etMachineId
         val etMachineName = binding.etMachineName
-        // val ivScanMachine = binding.ivScanMachine
+        val ivScanMachine = binding.ivAction
         val spnMachineType = binding.spnMachineType
 
         ivBack.setOnClickListener {
@@ -106,8 +112,47 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         }
 
+        ivScanMachine.setOnClickListener {
+            try {
+                val intent = Intent("com.google.zxing.client.android.SCAN")
+                intent.putExtra("SCAN_MODE", "QR_CODE_MODE") // "PRODUCT_MODE for bar codes
+                startActivityForResult(intent, 0)
+            } catch (e: Exception) {
+                val marketUri: Uri =
+                    Uri.parse("market://details?id=com.google.zxing.client.android")
+                val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
+                startActivity(marketIntent)
+            }
+        }
 
         return binding.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 0) {
+            if (resultCode == Activity.RESULT_OK) {
+                val contents: String? = data?.getStringExtra("SCAN_RESULT")
+                Log.d("onActivityResult",contents)
+                try {
+                    val machineModel : MachineModel = Gson().fromJson(contents, MachineModel::class.java)
+                    Log.d("onActivityResult", "$contents Val json : $machineModel")
+                    binding.etMachineId.setText(machineModel.id)
+                    binding.etMachineName.setText(machineModel.name)
+                    when(machineModel.type) {
+                        MachineType.STANDARD.ordinal -> binding.spnMachineType.setSelection(MachineType.STANDARD.ordinal)
+                        MachineType.ENTERPRISE.ordinal -> binding.spnMachineType.setSelection(MachineType.ENTERPRISE.ordinal)
+                    }
+                }catch (ex : java.lang.Exception) {
+                    //TODO
+                    Toast.makeText(requireContext().applicationContext,"Invalid QR Code", Toast.LENGTH_SHORT).show()
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(requireActivity().applicationContext, "Qr Code reading failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -43,7 +43,11 @@
         android:id="@+id/createMachineFragment"
         android:name="fr.maximedubost.digikofyapp.ui.machine.CreateMachineFragment"
         android:label="create_machine_fragment"
-        tools:layout="@layout/create_machine_fragment" />
+        tools:layout="@layout/create_machine_fragment" >
+        <action
+            android:id="@+id/action_createMachineFragment_to_scanMachineFragment"
+            app:destination="@id/scanMachineFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailMachineFragment"
         android:name="fr.maximedubost.digikofyapp.ui.machine.DetailMachineFragment"
@@ -52,4 +56,8 @@
             android:name="machineId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/scanMachineFragment"
+        android:name="fr.maximedubost.digikofyapp.ui.machine.ScanMachineFragment"
+        android:label="ScanMachineFragment" />
 </navigation>
