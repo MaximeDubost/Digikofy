@@ -42,7 +42,7 @@ object MachineRepository {
      * @return HTTP status code
      */
     suspend fun update(context: Context, machineModel: MachineModel): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.updateMachine("Bearer ${DigikofySession.getIdToken(context)!!}", machineModel)
+        retrofitClient.updateMachine("Bearer ${DigikofySession.getIdToken(context)!!}", machineModel.id!!, machineModel)
     }
 
     /**

@@ -4,13 +4,11 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.maximedubost.digikofyapp.MainActivity
@@ -18,7 +16,6 @@ import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.adapters.MachineAdapter
 import fr.maximedubost.digikofyapp.models.MachineModel
 import fr.maximedubost.digikofyapp.ui.machine.MachineViewModel
-import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
 
 class MachineDialog(
     private val adapter: MachineAdapter,
@@ -42,8 +39,10 @@ class MachineDialog(
         findViewById<TextView>(R.id.tv_detail_machine_name).text = machine.name
         findViewById<TextView>(R.id.tv_detail_machine_type).text = machine.typeToString()
         findViewById<TextView>(R.id.tv_detail_machine_state).text = machine.stateToString()
-        findViewById<TextView>(R.id.tv_detail_machine_creation_date).text = StringDateTimeFormatter.from(machine.creationDate!!)
-        findViewById<TextView>(R.id.tv_detail_machine_last_update).text = StringDateTimeFormatter.from(machine.lastUpdate!!)
+        findViewById<TextView>(R.id.tv_detail_machine_creation_date).text = machine.creationDate.toString()
+            //StringDateTimeFormatter.from(machine.creationDate!!)
+        findViewById<TextView>(R.id.tv_detail_machine_last_update).text = machine.lastUpdate.toString()
+            //StringDateTimeFormatter.from(machine.lastUpdate!!)
 
         findViewById<ImageView>(R.id.iv_close_machine_dialog).setOnClickListener {
             dismiss()
@@ -55,7 +54,7 @@ class MachineDialog(
 
         findViewById<FloatingActionButton>(R.id.fab_machine_dialog_remove).setOnClickListener {
             // MachineRepository().deleteMachine(machine)
-            viewModel.delete(MainActivity.appContext, machine.id)
+            viewModel.delete(MainActivity.appContext, machine.id!!)
 /*
             viewModel.machineDeleteResponseSuccess.observe(viewLifecycleOwner, {
                 Log.d("######## Delete", "Success")

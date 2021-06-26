@@ -35,8 +35,8 @@ class MachineRepository : BaseRepository() {
     }
 
     fun updateMachine(machine: MachineModel) =
-        machineDatabaseReference.child(machine.id).setValue(machine)
+        machineDatabaseReference.child(machine.id!!).setValue(machine)
 
     fun deleteMachine(machine: MachineModel) =
-        machineDatabaseReference.child(machine.id).removeValue()
+        machineDatabaseReference.child(machine.id!!).removeValue()
 }

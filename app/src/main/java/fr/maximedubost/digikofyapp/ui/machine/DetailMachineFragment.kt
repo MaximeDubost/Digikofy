@@ -7,22 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import fr.maximedubost.digikofyapp.MainActivity
 import fr.maximedubost.digikofyapp.R
-import fr.maximedubost.digikofyapp.databinding.CreateMachineFragmentBinding
 import fr.maximedubost.digikofyapp.databinding.DetailMachineFragmentBinding
-import fr.maximedubost.digikofyapp.databinding.MachineFragmentBinding
-import fr.maximedubost.digikofyapp.enums.MachineType
 import fr.maximedubost.digikofyapp.models.MachineModel
-import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
 
 class DetailMachineFragment : Fragment() {
 
@@ -34,6 +24,7 @@ private val args: DetailMachineFragmentArgs by navArgs()
 
     private lateinit var viewModel: MachineViewModel
     private lateinit var binding: DetailMachineFragmentBinding
+    private var isEditMode: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,36 +40,91 @@ private val args: DetailMachineFragmentArgs by navArgs()
 
         // viewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
 
-        val tvDetailMachineName = binding.tvDetailMachineName
-        val tvDetailMachineCreationDate = binding.tvDetailMachineCreationDate
-        val tvDetailMachineLastUpdate = binding.tvDetailMachineLastUpdate
-        val tvDetailMachineState = binding.tvDetailMachineState
-        val tvDetailMachineType = binding.tvDetailMachineType
+        binding.loading.visibility = View.VISIBLE
+        binding.ivEdit.visibility = View.INVISIBLE
+        binding.body.visibility = View.GONE
+        binding.btnDeleteMachine.visibility = View.GONE
 
-        val btnUseMachine = binding.btnUseMachine
-        val fabMachineDialogRemove = binding.fabMachineDialogRemove
-        // val ivAction = binding.ivAction
-        val ivBack = binding.ivBack
-
-        ivBack.setOnClickListener {
-            view?.findNavController()?.popBackStack()
+        binding.ivBack.setOnClickListener {
+            if(isEditMode)
+                toggleEditMode(clearEditText = true)
+            else
+                view?.findNavController()?.popBackStack()
         }
+
 
         // TODO : call getMachine with machineId and show data
         viewModel.findById(requireActivity().applicationContext, args.machineId)
 
         viewModel.machineFindByIdResponseSuccess.observe(viewLifecycleOwner, {
 
-            tvDetailMachineName.text = it.data.body()!!.name
-            tvDetailMachineType.text = MachineModel.typeToString(it.data.body()!!.type!!)
-            tvDetailMachineState.text = MachineModel.stateToString(it.data.body()!!.state!!)
-            tvDetailMachineCreationDate.text = it.data.body()!!.creationDate
-            tvDetailMachineLastUpdate.text = it.data.body()!!.lastUpdate
+            val machine = it.data.body()!!
+            val creationDate = machine.creationDate
+            Log.d(">>>> creationDate", machine.creationDate.toString())
+            Log.d(">>>> type", machine.creationDate!!::class.simpleName!!.toString())
 
-            btnUseMachine.setOnClickListener {
+
+            binding.loading.visibility = View.GONE
+            binding.body.visibility = View.VISIBLE
+            binding.ivEdit.visibility = View.VISIBLE
+            binding.tvMachineName.text = it.data.body()!!.name
+            binding.tvMachineType.text = MachineModel.typeToString(machine.type!!)
+            binding.tvMachineState.text = MachineModel.stateToString(machine.state!!)
+            binding.tvMachineCreationDate.text = machine.creationDate.toString()
+                //StringDateTimeFormatter.from(machine.creationDate!!)
+            binding.tvMachineLastUpdate.text = machine.lastUpdate.toString()
+                //StringDateTimeFormatter.from(machine.lastUpdate!!)
+
+            binding.ivEdit.setOnClickListener {
+                if(isEditMode)
+                {
+                    viewModel.update(
+                        requireActivity().applicationContext,
+                        MachineModel(binding.etMachineName.text.toString())
+                    )
+
+                    viewModel.machineUpdateResponseSuccess.observe(viewLifecycleOwner, {
+                        binding.tvMachineName.text = binding.etMachineName.text.toString()
+                        Toast.makeText(requireContext().applicationContext, "Modif OK", Toast.LENGTH_SHORT).show()
+                        toggleEditMode()
+                    })
+
+                    viewModel.machineUpdateResponseError.observe(viewLifecycleOwner, {
+                        binding.etMachineName.setText(machine.name)
+                        Toast.makeText(requireContext().applicationContext, "Modif Error", Toast.LENGTH_SHORT).show()
+                        toggleEditMode()
+                    })
+
+                }
+
+                else
+                    toggleEditMode(machine.name!!)
+            }
+
+            binding.btnUseMachine.setOnClickListener {
                 Toast.makeText(context, "Coming soon...", Toast.LENGTH_SHORT).show()
             }
 
+            binding.btnDeleteMachine.setOnClickListener {
+
+                //Toast.makeText(requireActivity().applicationContext, "Désynchronisation de la machine...", Toast.LENGTH_SHORT).show()
+
+                viewModel.delete(requireActivity().applicationContext, machine.id!!)
+
+                viewModel.machineDeleteResponseSuccess.observe(viewLifecycleOwner, {
+                    Log.d("######## Delete", "Success")
+                    Toast.makeText(requireActivity().applicationContext, "Machine désynchronisée avec succès", Toast.LENGTH_SHORT).show()
+                    // viewModel.findAll(requireActivity().applicationContext)
+                    view?.findNavController()?.popBackStack()
+                })
+
+                viewModel.machineDeleteResponseError.observe(viewLifecycleOwner, {
+                    Log.d("######## Delete", "Error")
+                    Toast.makeText(requireActivity().applicationContext, "Impossible de désynchroniser cette machine", Toast.LENGTH_SHORT).show()
+                })
+
+            }
+/*
             fabMachineDialogRemove.setOnClickListener {
                 // MachineRepository().deleteMachine(machine)
                 viewModel.delete(MainActivity.appContext, args.machineId)
@@ -99,6 +145,12 @@ private val args: DetailMachineFragmentArgs by navArgs()
 
                 // dismiss()
             }
+ */
+        })
+
+        viewModel.machineFindByIdResponseError.observe(viewLifecycleOwner, {
+            binding.loading.visibility = View.GONE
+            Toast.makeText(requireActivity().applicationContext, "Error", Toast.LENGTH_SHORT).show()
         })
 
         /*
@@ -114,6 +166,20 @@ private val args: DetailMachineFragmentArgs by navArgs()
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    fun toggleEditMode(machineName: String = "", clearEditText: Boolean = false) {
+        isEditMode = !isEditMode
+        binding.ivEdit.setImageResource(if(isEditMode) R.drawable.ic_check else R.drawable.ic_edit)
+        binding.ivBack.setImageResource(if(isEditMode) R.drawable.ic_close else R.drawable.ic_back)
+        binding.tvMachineName.visibility = if(isEditMode) View.GONE else View.VISIBLE
+        binding.tilMachineName.visibility = if(isEditMode) View.VISIBLE else View.GONE
+        binding.btnUseMachine.visibility = if(isEditMode) View.GONE else View.VISIBLE
+        binding.btnDeleteMachine.visibility = if(isEditMode) View.VISIBLE else View.GONE
+        if(isEditMode)
+            binding.etMachineName.setText(machineName)
+        if(clearEditText)
+            binding.etMachineName.setText("")
     }
 
 }

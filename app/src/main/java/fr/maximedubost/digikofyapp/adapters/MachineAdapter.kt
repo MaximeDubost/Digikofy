@@ -45,7 +45,7 @@ class MachineAdapter(
 
         holder.itemView.setOnClickListener {
             // MachineDialog(this, machine).show()
-            onMachineSelected(machine.id)
+            onMachineSelected(machine.id!!)
         }
 
         holder.fabUseMachine.setOnClickListener {

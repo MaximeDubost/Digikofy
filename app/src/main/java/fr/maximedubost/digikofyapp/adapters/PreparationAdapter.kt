@@ -52,7 +52,7 @@ class PreparationAdapter(
 
             holder.tvPreparationHours.visibility = View.VISIBLE
             holder.tvPreparationName.text = preparation.name
-            if(isSavedPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.daysOfWeek(preparation.daysOfWeek!!)
+            if(isSavedPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.weekdays(preparation.daysOfWeek!!)
             else if(isNextPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.nextTime)
             else if(isPastPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.lastTime!!)
 

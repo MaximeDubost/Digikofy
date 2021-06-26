@@ -9,12 +9,19 @@ class StringDateTimeFormatter {
     companion object {
 
         @SuppressLint("SimpleDateFormat")
-        val ISO_8601_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val ISO_8601_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS")
 
-        fun now() = ISO_8601_FORMAT.format(Date())
+        fun now(): String = ISO_8601_FORMAT.format(Date())
 
         fun from(stringDate: String): String {
-            if(stringDate[10] == 'T' && stringDate[19] == 'Z') {
+            if(stringDate.length == 23 &&
+                stringDate[4] == '-' &&
+                stringDate[7] == '-' &&
+                stringDate[10] == 'T' &&
+                stringDate[13] == ':' &&
+                stringDate[16] == ':' &&
+                stringDate[19] == '.'
+            ) {
                 val year = stringDate.substring(0, 4)
                 val month = stringDate.substring(5, 7)
                 val day = stringDate.substring(8, 10)
@@ -25,7 +32,7 @@ class StringDateTimeFormatter {
             return stringDate
         }
 
-        fun daysOfWeek(intList: ArrayList<Int>): String {
+        fun weekdays(intList: ArrayList<Int>): String {
             if(intList.size == 7)
                 return "Tous les jours"
             if(intList.size != 0) {

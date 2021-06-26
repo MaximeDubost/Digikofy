@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.user.UserFragment">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
@@ -33,18 +32,39 @@
                 android:layout_marginStart="@dimen/short_dimen" />
 
             <TextView
+                android:visibility="visible"
+                android:id="@+id/tv_machine_name"
                 style="@style/BoldTitleTextStyle24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="machine name"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/iv_action"
+                app:layout_constraintEnd_toStartOf="@+id/iv_edit"
                 app:layout_constraintStart_toEndOf="@+id/iv_back"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginBottom="@dimen/short_dimen" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:visibility="gone"
+                android:id="@+id/til_machine_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/very_large_dimen"
+                android:layout_marginEnd="@dimen/very_large_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <EditText
+                    android:id="@+id/et_machine_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <ImageView
-                android:id="@+id/iv_action"
+                android:visibility="visible"
+                android:id="@+id/iv_edit"
+                android:src="@drawable/ic_edit"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="@dimen/medium_dimen"
@@ -54,119 +74,134 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/short_dimen"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header">
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/tv_detail_machine_name"
-                style="@style/BoldTitleTextStyle24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/very_tiny_dimen"/>
-
-            <TextView
-                android:id="@+id/tv_detail_machine_type"
+                android:text="Modèle"
+                android:id="@+id/tv_machine_type"
                 style="@style/DefaultTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_dimen"
-                android:paddingBottom="@dimen/very_tiny_dimen"/>
+                android:paddingBottom="@dimen/very_tiny_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_detail_machine_state"
+                android:text="Disponible"
+                android:id="@+id/tv_machine_state"
                 style="@style/BlueTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_dimen"
-                android:paddingBottom="@dimen/very_tiny_dimen"/>
+                android:paddingBottom="@dimen/very_tiny_dimen"
+                app:layout_constraintTop_toBottomOf="@+id/tv_machine_type"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <LinearLayout
+                android:id="@+id/ll_machine_creation_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/short_dimen"
-                android:layout_marginBottom="@dimen/tiny_dimen"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/tv_machine_state"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/short_dimen">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_machine_creation_date_label"
+                    style="@style/RegularGreyTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/default_dimen"
+                    android:paddingBottom="@dimen/very_tiny_dimen"
+                    android:text="Ajoutée" />
 
-                    <TextView
-                        android:id="@+id/tv_detail_machine_creation_date_label"
-                        style="@style/RegularGreyTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/default_dimen"
-                        android:paddingBottom="@dimen/very_tiny_dimen"
-                        android:text="Ajoutée le" />
-
-                    <TextView
-                        android:id="@+id/tv_detail_machine_creation_date"
-                        style="@style/RegularGreyTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/very_tiny_dimen"
-                        android:paddingBottom="@dimen/very_tiny_dimen"/>
-                </LinearLayout>
-
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_machine_creation_date"
+                    style="@style/RegularGreyTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_detail_machine_last_update_label"
-                        style="@style/RegularGreyTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/default_dimen"
-                        android:paddingBottom="@dimen/very_tiny_dimen"
-                        android:text="Modifiée le" />
-
-                    <TextView
-                        android:id="@+id/tv_detail_machine_last_update"
-                        style="@style/RegularGreyTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/very_tiny_dimen"
-                        android:paddingBottom="@dimen/very_tiny_dimen"/>
-                </LinearLayout>
-
+                    android:layout_marginStart="@dimen/very_tiny_dimen"
+                    android:paddingBottom="@dimen/very_tiny_dimen"/>
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_machine_last_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/ll_machine_creation_date"
+                app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/btn_use_machine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            style="@style/DefaultButton"
-            android:layout_marginTop="@dimen/medium_dimen"
-            android:text="Utiliser" />
+                <TextView
+                    android:id="@+id/tv_machine_last_update_label"
+                    style="@style/RegularGreyTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_dimen"
+                    android:paddingBottom="@dimen/very_tiny_dimen"
+                    android:text="Modifiée" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_machine_dialog_remove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/short_dimen"
-            android:backgroundTint="@color/white"
-            android:contentDescription="Utiliser"
-            android:src="@drawable/ic_delete"
-            app:backgroundTint="@color/red"
-            app:fabSize="mini"
-            app:layout_constraintStart_toEndOf="@+id/btn_use_machine"
-            app:layout_constraintTop_toTopOf="@+id/btn_use_machine" />
+                <TextView
+                    android:id="@+id/tv_machine_last_update"
+                    style="@style/RegularGreyTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/very_tiny_dimen"
+                    android:paddingBottom="@dimen/very_tiny_dimen"/>
+            </LinearLayout>
+
+            <Button
+                android:visibility="visible"
+                android:id="@+id/btn_use_machine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/ll_machine_last_update"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/DefaultButton"
+                android:layout_marginTop="@dimen/medium_dimen"
+                android:layout_marginBottom="@dimen/short_dimen"
+                android:text="Utiliser" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btn_delete_machine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/ll_machine_last_update"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/DeleteButton"
+                android:layout_marginTop="@dimen/medium_dimen"
+                android:text="Désynchroniser" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tiny_dimen"
+                app:layout_constraintTop_toBottomOf="@+id/btn_use_machine"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tiny_dimen"
+                app:layout_constraintTop_toBottomOf="@+id/btn_delete_machine"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

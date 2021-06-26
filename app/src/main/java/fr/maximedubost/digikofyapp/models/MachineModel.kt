@@ -1,5 +1,7 @@
 package fr.maximedubost.digikofyapp.models
 
+import com.google.gson.annotations.SerializedName
+import com.google.type.DateTime
 import fr.maximedubost.digikofyapp.enums.MachineState
 import fr.maximedubost.digikofyapp.enums.MachineType
 import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
@@ -7,12 +9,14 @@ import java.time.LocalDateTime
 import java.util.*
 
 data class MachineModel (
-    val id: String = UUID.randomUUID().toString().substring(20),
-    var name: String = UUID.randomUUID().toString().substring(20),
-    val type: Int? = MachineType.STANDARD.ordinal,
-    var state: Int? = MachineState.UNAVAILABLE.ordinal,
-    val creationDate: String? = LocalDateTime.now().toString(),
-    var lastUpdate: String? = LocalDateTime.now().toString(),
+    val id: String? = null,
+    var name: String? = null,
+    val type: Int? = null,
+    var state: Int? = null,
+    @SerializedName("creation_date")
+    val creationDate: String? = null,
+    @SerializedName("last_update")
+    var lastUpdate: String? = null
 ) {
 
     companion object {

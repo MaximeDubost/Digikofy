@@ -50,7 +50,8 @@ interface ApiInterface {
     @PUT("machine/{id}")
     suspend fun updateMachine(
         @Header("Authorization") token: String,
-        @Path("id") machineModel: MachineModel
+        @Path("id") id: String,
+        @Body machineModel: MachineModel
     ): Response<Any>
 
     @DELETE("machine/{id}")
@@ -83,7 +84,8 @@ interface ApiInterface {
     @PUT("preparation/{id}")
     suspend fun updatePreparation(
         @Header("Authorization") token: String,
-        @Path("id") preparationModel: PreparationModel
+        @Path("id") id: String,
+        @Body preparationModel: PreparationModel
     ): Response<Any>
 
     @DELETE("preparation/{id}")

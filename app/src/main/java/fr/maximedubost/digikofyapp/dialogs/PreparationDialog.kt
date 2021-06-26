@@ -62,7 +62,7 @@ class PreparationDialog(
             tvDetailPreparationName.visibility = View.VISIBLE
             tvDetailPreparationHours.visibility = View.VISIBLE
             tvDetailPreparationName.text = preparation.name
-            tvDetailPreparationDaysOfWeek.text = StringDateTimeFormatter.daysOfWeek(preparation.daysOfWeek!!)
+            tvDetailPreparationDaysOfWeek.text = StringDateTimeFormatter.weekdays(preparation.daysOfWeek!!)
             tvDetailPreparationHours.text = StringDateTimeFormatter.hours(preparation.hours!!)
         }
         else {

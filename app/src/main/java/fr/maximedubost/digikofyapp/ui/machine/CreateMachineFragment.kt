@@ -81,8 +81,6 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
                             machineName,
                             spnMachineType.selectedItemPosition,
                             0, // TODO : null
-                            null,
-                            null
                         )
                     )
 
