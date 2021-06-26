@@ -118,10 +118,18 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE") // "PRODUCT_MODE for bar codes
                 startActivityForResult(intent, 0)
             } catch (e: Exception) {
-                val marketUri: Uri =
-                    Uri.parse("market://details?id=com.google.zxing.client.android")
-                val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
-                startActivity(marketIntent)
+                try {
+                    val marketUri: Uri =
+                        Uri.parse("market://details?id=com.google.zxing.client.android")
+                    val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
+                    startActivity(marketIntent)
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        requireActivity().applicationContext,
+                        "Vous devez installer l'application \"Barcode Scanner\" de l'éditeur \"ZXing\" pour continuer",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
 
@@ -143,13 +151,20 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         MachineType.STANDARD.ordinal -> binding.spnMachineType.setSelection(MachineType.STANDARD.ordinal)
                         MachineType.ENTERPRISE.ordinal -> binding.spnMachineType.setSelection(MachineType.ENTERPRISE.ordinal)
                     }
-                }catch (ex : java.lang.Exception) {
-                    //TODO
-                    Toast.makeText(requireContext().applicationContext,"Invalid QR Code", Toast.LENGTH_SHORT).show()
+                }catch (e: Exception) {
+                    Toast.makeText(
+                        requireContext().applicationContext,
+                        "QR code invalide",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(requireActivity().applicationContext, "Qr Code reading failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Impossible de lire le QR code",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
