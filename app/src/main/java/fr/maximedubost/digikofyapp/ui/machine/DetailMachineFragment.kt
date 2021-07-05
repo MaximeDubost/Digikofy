@@ -1,5 +1,6 @@
 package fr.maximedubost.digikofyapp.ui.machine
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -7,12 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import fr.maximedubost.digikofyapp.MainActivity
 import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.databinding.DetailMachineFragmentBinding
 import fr.maximedubost.digikofyapp.models.MachineModel
+import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
 
 class DetailMachineFragment : Fragment() {
 
@@ -46,6 +50,9 @@ private val args: DetailMachineFragmentArgs by navArgs()
         binding.btnDeleteMachine.visibility = View.GONE
 
         binding.ivBack.setOnClickListener {
+
+            // TODO : Close keyboard
+
             if(isEditMode)
                 toggleEditMode(clearEditText = true)
             else
@@ -59,9 +66,10 @@ private val args: DetailMachineFragmentArgs by navArgs()
         viewModel.machineFindByIdResponseSuccess.observe(viewLifecycleOwner, {
 
             val machine = it.data.body()!!
-            val creationDate = machine.creationDate
             Log.d(">>>> creationDate", machine.creationDate.toString())
             Log.d(">>>> type", machine.creationDate!!::class.simpleName!!.toString())
+            Log.d(">>>> creationDate", machine.lastUpdate.toString())
+            Log.d(">>>> type", machine.lastUpdate!!::class.simpleName!!.toString())
 
 
             binding.loading.visibility = View.GONE
@@ -70,17 +78,20 @@ private val args: DetailMachineFragmentArgs by navArgs()
             binding.tvMachineName.text = it.data.body()!!.name
             binding.tvMachineType.text = MachineModel.typeToString(machine.type!!)
             binding.tvMachineState.text = MachineModel.stateToString(machine.state!!)
-            binding.tvMachineCreationDate.text = machine.creationDate.toString()
+            binding.tvMachineCreationDate.text = StringDateTimeFormatter.from(machine.creationDate.toString())
                 //StringDateTimeFormatter.from(machine.creationDate!!)
-            binding.tvMachineLastUpdate.text = machine.lastUpdate.toString()
+            binding.tvMachineLastUpdate.text = StringDateTimeFormatter.from(machine.lastUpdate.toString())
                 //StringDateTimeFormatter.from(machine.lastUpdate!!)
 
             binding.ivEdit.setOnClickListener {
-                if(isEditMode)
+
+                // TODO : Close keyboard
+
+                if(isEditMode && binding.etMachineName.text.toString() != machine.name)
                 {
                     viewModel.update(
                         requireActivity().applicationContext,
-                        MachineModel(binding.etMachineName.text.toString())
+                        MachineModel(machine.id, binding.etMachineName.text.toString())
                     )
 
                     viewModel.machineUpdateResponseSuccess.observe(viewLifecycleOwner, {
