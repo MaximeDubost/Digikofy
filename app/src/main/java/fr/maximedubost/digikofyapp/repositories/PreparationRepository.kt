@@ -42,7 +42,7 @@ object PreparationRepository {
      * @return HTTP status code
      */
     suspend fun update(context: Context, preparationModel: PreparationModel): ApiResult<Response<Any>> = safeApiCall {
-        retrofitClient.updatePreparation("Bearer ${DigikofySession.getIdToken(context)!!}", preparationModel.id, preparationModel)
+        retrofitClient.updatePreparation("Bearer ${DigikofySession.getIdToken(context)!!}", preparationModel.id!!, preparationModel)
     }
 
     /**

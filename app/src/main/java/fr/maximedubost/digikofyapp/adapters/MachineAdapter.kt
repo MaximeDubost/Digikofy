@@ -44,7 +44,6 @@ class MachineAdapter(
             holder.tvMachineAvailability.setTextColor(Color.LTGRAY)
 
         holder.itemView.setOnClickListener {
-            // MachineDialog(this, machine).show()
             onMachineSelected(machine.id!!)
         }
 

@@ -9,9 +9,9 @@ class StringDateTimeFormatter {
     companion object {
 
         @SuppressLint("SimpleDateFormat")
-        val ISO_8601_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        // val ISO_8601_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 
-        fun now(): String = ISO_8601_FORMAT.format(Date())
+        // fun now(): String = ISO_8601_FORMAT.format(Date())
 
         fun from(stringDate: String): String {
             if(stringDate.length == 25 &&
@@ -37,7 +37,7 @@ class StringDateTimeFormatter {
             if(intList.size == 7)
                 return "Tous les jours"
             if(intList.size != 0) {
-                val daysOfWeek = StringBuilder().append("Tous les ")
+                var daysOfWeek = StringBuilder().append("Tous les ")
                 intList.forEach {
                     when(it) {
                         0 -> daysOfWeek.append("Lun, ")
@@ -48,6 +48,15 @@ class StringDateTimeFormatter {
                         5 -> daysOfWeek.append("Sam, ")
                         else -> daysOfWeek.append("Dim, ")
                     }
+                }
+                when(daysOfWeek.toString()) {
+                    "Tous les Lun, " -> daysOfWeek.replace(9, 12, "lundis")
+                    "Tous les Mar, " -> daysOfWeek.replace(9, 12, "mardis")
+                    "Tous les Mer, " -> daysOfWeek.replace(9, 12, "mercredis")
+                    "Tous les Jeu, " -> daysOfWeek.replace(9, 12, "jeudis")
+                    "Tous les Ven, " -> daysOfWeek.replace(9, 12, "vendredis")
+                    "Tous les Sam, " -> daysOfWeek.replace(9, 12, "samedis")
+                    "Tous les Dim, " -> daysOfWeek.replace(9, 12, "dimanches")
                 }
                 return daysOfWeek.toString().substring(0, daysOfWeek.length-2)
             }

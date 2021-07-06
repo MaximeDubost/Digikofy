@@ -24,8 +24,7 @@ class DetailMachineFragment : Fragment() {
         fun newInstance() = DetailMachineFragment()
     }
 
-private val args: DetailMachineFragmentArgs by navArgs()
-
+    private val args: DetailMachineFragmentArgs by navArgs()
     private lateinit var viewModel: MachineViewModel
     private lateinit var binding: DetailMachineFragmentBinding
     private var isEditMode: Boolean = false
@@ -35,14 +34,21 @@ private val args: DetailMachineFragmentArgs by navArgs()
         savedInstanceState: Bundle?
     ): View {
 
-        // val machineId: String = DetailMachineFragmentArgs.fromBundle(requireArguments()).machineId
-
         viewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
         binding = DetailMachineFragmentBinding.inflate(inflater)
 
-        //viewModel = ViewModelProvider.NewInstanceFactory().create(MachineViewModel::class.java)
-
-        // viewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
+        /*
+         * binding :
+         * - ivBack
+         * - loading
+         * - body
+         * - ivEdit
+         * - tvMachineName
+         * - tvMachineType
+         * - tvMachineState
+         * - tvMachineCreationDate
+         * - tvMachineLastUpdate
+         */
 
         binding.loading.visibility = View.VISIBLE
         binding.ivEdit.visibility = View.INVISIBLE
@@ -79,9 +85,7 @@ private val args: DetailMachineFragmentArgs by navArgs()
             binding.tvMachineType.text = MachineModel.typeToString(machine.type!!)
             binding.tvMachineState.text = MachineModel.stateToString(machine.state!!)
             binding.tvMachineCreationDate.text = StringDateTimeFormatter.from(machine.creationDate.toString())
-                //StringDateTimeFormatter.from(machine.creationDate!!)
             binding.tvMachineLastUpdate.text = StringDateTimeFormatter.from(machine.lastUpdate.toString())
-                //StringDateTimeFormatter.from(machine.lastUpdate!!)
 
             binding.ivEdit.setOnClickListener {
 
@@ -135,40 +139,12 @@ private val args: DetailMachineFragmentArgs by navArgs()
                 })
 
             }
-/*
-            fabMachineDialogRemove.setOnClickListener {
-                // MachineRepository().deleteMachine(machine)
-                viewModel.delete(MainActivity.appContext, args.machineId)
-
-                viewModel.machineDeleteResponseSuccess.observe(viewLifecycleOwner, {
-                    Log.d("######## Delete", "Success")
-                    Toast.makeText(requireActivity().applicationContext, "Machine désynchronisée avec succès", Toast.LENGTH_SHORT).show()
-                    // viewModel.findAll(requireActivity().applicationContext)
-                    view?.findNavController()?.popBackStack()
-                })
-
-                viewModel.machineDeleteResponseError.observe(viewLifecycleOwner, {
-                    Log.d("######## Delete", "Error")
-                    Toast.makeText(context, "Impossible de désynchroniser cette machine", Toast.LENGTH_SHORT).show()
-                })
-
-                // Toast.makeText(context, "Désynchronisation de la machine...", Toast.LENGTH_SHORT).show()
-
-                // dismiss()
-            }
- */
         })
 
         viewModel.machineFindByIdResponseError.observe(viewLifecycleOwner, {
             binding.loading.visibility = View.GONE
             Toast.makeText(requireActivity().applicationContext, "Error", Toast.LENGTH_SHORT).show()
         })
-
-        /*
-        findViewById<ImageView>(R.id.iv_close_machine_dialog).setOnClickListener {
-            dismiss()
-        }
-        */
 
         return binding.root
     }

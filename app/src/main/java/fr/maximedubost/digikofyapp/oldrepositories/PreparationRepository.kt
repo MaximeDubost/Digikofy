@@ -36,5 +36,5 @@ class PreparationRepository : BaseRepository() {
     }
 
     fun deletePreparation(preparation: PreparationModel) =
-        machineDatabaseReference.child(preparation.id).removeValue()
+        machineDatabaseReference.child(preparation.id!!).removeValue()
 }

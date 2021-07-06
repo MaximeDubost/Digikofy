@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.maximedubost.digikofyapp.MainActivity
 import fr.maximedubost.digikofyapp.R
-import fr.maximedubost.digikofyapp.dialogs.PreparationDialog
 import fr.maximedubost.digikofyapp.models.PreparationModel
 import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
 
 class PreparationAdapter(
+    private val onPreparationSelected: (preparationId: String) -> Unit?,
     private val preparationList: List<PreparationModel>,
     private val isSavedPreparationsPage: Boolean = false,
     private val isNextPreparationsPage: Boolean = false,
@@ -21,8 +21,6 @@ class PreparationAdapter(
     val context: MainActivity
 ) : RecyclerView.Adapter<PreparationAdapter.ViewHolder>(){
     class ViewHolder (view: View): RecyclerView.ViewHolder(view) {
-
-
 
         var tvPreparationName: TextView = view.findViewById(R.id.tv_preparation_name)
         var tvPreparationDays: TextView = view.findViewById(R.id.tv_preparation_days)
@@ -44,30 +42,31 @@ class PreparationAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val preparation = preparationList[position]
 
-
-        holder.tvPreparationCoffee.text = preparation.coffee.name
+        holder.tvPreparationCoffee.text = preparation.coffee!!.name
 
         if (preparation.saved) {
             holder.tvPreparationName.visibility = View.VISIBLE
 
             holder.tvPreparationHours.visibility = View.VISIBLE
             holder.tvPreparationName.text = preparation.name
-            if(isSavedPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.weekdays(preparation.daysOfWeek!!)
-            else if(isNextPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.nextTime)
-            else if(isPastPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.lastTime!!)
+            when {
+                isSavedPreparationsPage -> holder.tvPreparationDays.text = StringDateTimeFormatter.weekdays(preparation.weekdays!!)
+                isNextPreparationsPage -> holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.nextTime!!)
+                isPastPreparationsPage -> holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.lastTime!!)
+            }
 
             holder.tvPreparationHours.text = StringDateTimeFormatter.hours(preparation.hours!!)
         } else {
             holder.tvPreparationName.visibility = View.GONE
 
-            if(isNextPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.nextTime)
+            if(isNextPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.nextTime!!)
             else if(isPastPreparationsPage) holder.tvPreparationDays.text = StringDateTimeFormatter.from(preparation.lastTime!!)
 
             holder.tvPreparationHours.visibility = View.GONE
         }
 
         holder.itemView.setOnClickListener {
-            PreparationDialog(this, preparation, isSavedPreparationsPage, isNextPreparationsPage, isPastPreparationsPage).show()
+            onPreparationSelected(preparation.id!!)
         }
         holder.fabStartPreparation.setOnClickListener {
             Toast.makeText(context, "Coming soon...", Toast.LENGTH_SHORT).show()

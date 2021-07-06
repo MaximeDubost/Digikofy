@@ -25,8 +25,9 @@
             -->
 
         <LinearLayout
+            android:id="@+id/ll_preparations_navbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/large_dimen"
+            android:layout_height="@dimen/medium_plus_dimen"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +67,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_preparations"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="96dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -101,6 +102,28 @@
             android:layout_marginTop="@dimen/short_dimen"
             android:text="@string/preparation_list_size_zero_label"
             style="@style/RegularGreyTextStyle" />
+
+        <TextView
+            android:id="@+id/tv_error_preparation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/lav_no_preparation"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/short_dimen"
+            android:text="Impossible d'afficher les préparations"
+            style="@style/RegularGreyTextStyle" />
+
+        <RelativeLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

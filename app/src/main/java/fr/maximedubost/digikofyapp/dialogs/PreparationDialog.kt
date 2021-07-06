@@ -42,14 +42,14 @@ class PreparationDialog(
         val tvLabelDetailPreparationCreationDate: TextView = findViewById(R.id.tv_label_detail_preparation_creation_date)
         val tvLabelDetailPreparationLastUpdate: TextView = findViewById(R.id.tv_label_detail_preparation_last_update)
 
-        tvDetailPreparationCoffeeName.text = preparation.coffee.name
+        tvDetailPreparationCoffeeName.text = preparation.coffee!!.name
         if(isSavedPreparationsPage) {
             tvLabelDetailPreparationCreationDate.visibility = View.VISIBLE
             tvDetailPreparationCreationDate.visibility = View.VISIBLE
             tvLabelDetailPreparationLastUpdate.visibility = View.VISIBLE
             tvDetailPreparationLastUpdate.visibility = View.VISIBLE
-            tvDetailPreparationCreationDate.text = StringDateTimeFormatter.from(preparation.creationDate)
-            tvDetailPreparationLastUpdate.text = StringDateTimeFormatter.from(preparation.lastUpdate)
+            tvDetailPreparationCreationDate.text = StringDateTimeFormatter.from(preparation.creationDate!!)
+            tvDetailPreparationLastUpdate.text = StringDateTimeFormatter.from(preparation.lastUpdate!!)
         }
         else {
             tvLabelDetailPreparationCreationDate.visibility = View.GONE
@@ -62,12 +62,12 @@ class PreparationDialog(
             tvDetailPreparationName.visibility = View.VISIBLE
             tvDetailPreparationHours.visibility = View.VISIBLE
             tvDetailPreparationName.text = preparation.name
-            tvDetailPreparationDaysOfWeek.text = StringDateTimeFormatter.weekdays(preparation.daysOfWeek!!)
+            tvDetailPreparationDaysOfWeek.text = StringDateTimeFormatter.weekdays(preparation.weekdays!!)
             tvDetailPreparationHours.text = StringDateTimeFormatter.hours(preparation.hours!!)
         }
         else {
             tvDetailPreparationName.visibility = View.GONE
-            if(isNextPreparationsPage) tvDetailPreparationDaysOfWeek.text = StringDateTimeFormatter.from(preparation.nextTime)
+            if(isNextPreparationsPage) tvDetailPreparationDaysOfWeek.text = StringDateTimeFormatter.from(preparation.nextTime!!)
             if(isPastPreparationsPage) tvDetailPreparationDaysOfWeek.text = StringDateTimeFormatter.from(preparation.lastTime!!)
             tvDetailPreparationHours.visibility = View.GONE
         }

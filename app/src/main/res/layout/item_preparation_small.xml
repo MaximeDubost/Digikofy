@@ -38,7 +38,7 @@
                     android:id="@+id/tv_preparation_coffee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Espresso"
+                    android:text="coffee name"
                     style="@style/MediumTitleTextStyle24"
                     android:paddingBottom="@dimen/very_tiny_dimen"/>
 
@@ -57,6 +57,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:visibility="gone"
         android:id="@+id/fab_start_preparation"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -70,5 +71,6 @@
         app:layout_constraintEnd_toEndOf="@id/card_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_gravity="end" />
+
 
 </FrameLayout>
