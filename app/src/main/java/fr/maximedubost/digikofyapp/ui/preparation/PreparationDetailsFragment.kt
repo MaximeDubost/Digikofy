@@ -23,7 +23,8 @@ class PreparationDetailsFragment : Fragment() {
     private var isEditMode: Boolean = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = PreparationDetailsFragmentBinding.inflate(inflater)
@@ -46,7 +47,9 @@ class PreparationDetailsFragment : Fragment() {
 
         viewModel.preparationFindByIdResponseSuccess.observe(viewLifecycleOwner, {
             val preparation = it.data.body()!!
+
             showData(preparation)
+
             binding.ivEdit.setOnClickListener { onClickIvEdit(preparation) }
             binding.btnUsePreparation.setOnClickListener { onClickBtnUsePreparation(preparation) }
             binding.btnDeletePreparation.setOnClickListener { deletePreparation(preparation) }
@@ -56,7 +59,7 @@ class PreparationDetailsFragment : Fragment() {
             binding.loading.visibility = View.GONE
             Toast.makeText(
                 requireActivity().applicationContext,
-                "Impossible d'afficher la préparation",
+                "Impossible d'afficher les détails de la préparation",
                 Toast.LENGTH_SHORT
             ).show()
         })

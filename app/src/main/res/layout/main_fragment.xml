@@ -55,7 +55,7 @@
 
         <!-- NAVIGATION -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigation_view"
+            android:id="@+id/bnv_home"
             android:layout_width="match_parent"
             android:layout_height="@dimen/very_large_dimen"
             android:background="@color/blue"

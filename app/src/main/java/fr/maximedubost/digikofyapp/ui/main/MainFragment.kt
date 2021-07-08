@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -16,97 +15,50 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.databinding.MainFragmentBinding
-import fr.maximedubost.digikofyapp.oldrepositories.BaseRepository
-import fr.maximedubost.digikofyapp.oldrepositories.HomeRepository
-import fr.maximedubost.digikofyapp.oldrepositories.MachineRepository
-import fr.maximedubost.digikofyapp.oldrepositories.PreparationRepository
 import fr.maximedubost.digikofyapp.ui.home.HomeFragment
 import fr.maximedubost.digikofyapp.ui.machine.MachineFragment
-import fr.maximedubost.digikofyapp.ui.machine.MachineViewModel
 import fr.maximedubost.digikofyapp.ui.preparation.PreparationFragment
 import fr.maximedubost.digikofyapp.ui.preparation.PreparationViewModel
 
 class MainFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
-    private lateinit var mainViewModel: MainViewModel
-    private lateinit var machineViewModel: MachineViewModel
-    private lateinit var preparationViewModel: PreparationViewModel
+    private lateinit var viewModel: PreparationViewModel
     private lateinit var binding: MainFragmentBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        Log.d("######## MainFragment", "onCreateView()")
-
         binding = MainFragmentBinding.inflate(inflater)
 
-        val tvMainPageTitle = binding.tvMainPageTitle
-        val ivMainPageAction = binding.ivMainPageAction
-
-        tvMainPageTitle.text = resources.getString(R.string.home_page_title)
-        ivMainPageAction.setOnClickListener {
+        binding.tvMainPageTitle.text = resources.getString(R.string.home_page_title)
+        binding.ivMainPageAction.setOnClickListener {
             view?.findNavController()?.navigate(
                 MainFragmentDirections.actionMainFragmentToUserFragment()
             )
         }
 
-        // Chargement du fragment par défaut
-        loadFragment(HomeFragment(), HomeRepository())
-
-        // Import de la BottomNavigationView
-        val navigationView = binding.navigationView
-
-        // Définition du style de la navbar
-        defineBottomNavigationBar(navigationView)
+        loadFragment(HomeFragment())
+        createBottomNavigationBar(binding.bnvHome)
 
         // Sélection de l'item "Menu" par défaut
-        navigationView.menu.findItem(R.id.home_page).isChecked = true
+        binding.bnvHome.menu.findItem(R.id.home_page).isChecked = true
 
-        // Chargement du fragment en fonction de la BottomNavigationView
-        navigationView.setOnNavigationItemSelectedListener {
+        binding.bnvHome.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.machine_page -> {
-                    tvMainPageTitle.text = resources.getString(R.string.machine_page_title)
-                    ivMainPageAction.setOnClickListener {
-                        Log.d("######## MainFragment", "actionMainFragmentToCreateMachineFragment()")
-                        view?.findNavController()?.navigate(
-                            MainFragmentDirections.actionMainFragmentToCreateMachineFragment()
-                        )
-                    }
-                    ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
-                        requireActivity().applicationContext, R.drawable.ic_add
-                    ))
-                    loadFragment(MachineFragment(), MachineRepository())
+                    updateView(R.id.machine_page)
+                    loadFragment(MachineFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.home_page -> {
-                    tvMainPageTitle.text = resources.getString(R.string.home_page_title)
-                    ivMainPageAction.setOnClickListener {
-                        view?.findNavController()?.navigate(
-                            MainFragmentDirections.actionMainFragmentToUserFragment()
-                        )
-                    }
-                    ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
-                        requireActivity().applicationContext, R.drawable.ic_settings
-                    ))
-                    loadFragment(HomeFragment(), HomeRepository())
+                    updateView(R.id.home_page)
+                    loadFragment(HomeFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.coffee_page -> {
-                    tvMainPageTitle.text = resources.getString(R.string.preparation_page_title)
-                    ivMainPageAction.setOnClickListener {
-                        // TODO : Define header button action
-                    }
-                    ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
-                        requireActivity().applicationContext, R.drawable.ic_add
-                    ))
-                    loadFragment(PreparationFragment(), PreparationRepository())
+                    updateView(R.id.coffee_page)
+                    loadFragment(PreparationFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> false
@@ -116,39 +68,73 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        machineViewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
-        preparationViewModel = ViewModelProvider(this).get(PreparationViewModel::class.java)
-
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(PreparationViewModel::class.java)
     }
 
-
     /**
-     * Chargement du fragment
+     * Update element of the view
      *
-     * @param fragment Fragment à charger
+     * @param menuItemId id of view's menu item
      */
-    private fun loadFragment(fragment: Fragment, repository: BaseRepository) {
-        Log.d("######## MainFragment", "loadFragment()")
-        // Mise à jour des éléments affichés
-        // repository.updateData {
-            //Injection du fragment
-            val transaction = (context as FragmentActivity)
-                .supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        // }
+    private fun updateView(menuItemId: Int) {
+        when(menuItemId) {
+            R.id.machine_page -> {
+                binding.tvMainPageTitle.text = resources.getString(R.string.machine_page_title)
+                binding.ivMainPageAction.setOnClickListener {
+                    Log.d("######## MainFragment", "actionMainFragmentToCreateMachineFragment()")
+                    view?.findNavController()?.navigate(
+                        MainFragmentDirections.actionMainFragmentToCreateMachineFragment()
+                    )
+                }
+                binding.ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
+                    requireActivity().applicationContext, R.drawable.ic_add
+                ))
+            }
+
+            R.id.home_page -> {
+                binding.tvMainPageTitle.text = resources.getString(R.string.home_page_title)
+                binding.ivMainPageAction.setOnClickListener {
+                    view?.findNavController()?.navigate(
+                        MainFragmentDirections.actionMainFragmentToUserFragment()
+                    )
+                }
+                binding.ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
+                    requireActivity().applicationContext, R.drawable.ic_settings
+                ))
+            }
+
+            R.id.coffee_page -> {
+                binding.tvMainPageTitle.text = resources.getString(R.string.preparation_page_title)
+                binding.ivMainPageAction.setOnClickListener {
+                    // TODO : Define header button action
+                }
+                binding.ivMainPageAction.setImageDrawable(AppCompatResources.getDrawable(
+                    requireActivity().applicationContext, R.drawable.ic_add
+                ))
+            }
+        }
     }
 
     /**
-     * defineBottomNavigationBar
+     * Fragment loading
+     *
+     * @param fragment Fragment to load
      */
-    private fun defineBottomNavigationBar(navigationView: BottomNavigationView) {
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    /**
+     * Create the bottom navigation bar
+     *
+     * @param navigationView navigationView
+     */
+    private fun createBottomNavigationBar(navigationView: BottomNavigationView) {
         val radius = resources.getDimension(R.dimen.short_dimen);
         val bottomBarBackground: MaterialShapeDrawable =
             navigationView.background as MaterialShapeDrawable

@@ -18,7 +18,6 @@ class PreparationAdapter(
     private val isSavedPreparationsPage: Boolean = false,
     private val isNextPreparationsPage: Boolean = false,
     private val isPastPreparationsPage: Boolean = false,
-    val context: MainActivity
 ) : RecyclerView.Adapter<PreparationAdapter.ViewHolder>(){
     class ViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
@@ -69,7 +68,11 @@ class PreparationAdapter(
             onPreparationSelected(preparation.id!!)
         }
         holder.fabStartPreparation.setOnClickListener {
-            Toast.makeText(context, "Coming soon...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                MainActivity.appContext,
+                "Coming soon...",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

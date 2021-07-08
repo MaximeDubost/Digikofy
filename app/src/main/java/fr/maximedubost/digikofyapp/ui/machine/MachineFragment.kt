@@ -17,11 +17,6 @@ import fr.maximedubost.digikofyapp.ui.main.MainFragment
 import fr.maximedubost.digikofyapp.ui.main.MainFragmentDirections
 
 class MachineFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MachineFragment()
-    }
-
     private lateinit var viewModel: MachineViewModel
     private lateinit var binding: MachineFragmentBinding
 
@@ -29,60 +24,51 @@ class MachineFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        Log.d("onCreateView >>>>>>>>", "")
-        viewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
         binding = MachineFragmentBinding.inflate(inflater)
 
-        val loading = binding.loading
-        val lavNoMachine = binding.lavNoMachine
-        val tvNoMachine = binding.tvNoMachine
-        val tvErrorMachine = binding.tvErrorMachine
-        val rvMachines = binding.rvMachines
-
-        //rvMachines.adapter = MachineAdapter(MachineRepository.Singleton.machineList, this.activity as MainActivity)
-
-        loading.visibility = View.VISIBLE
-        lavNoMachine.visibility = View.GONE
-        tvNoMachine.visibility = View.GONE
-        tvErrorMachine.visibility = View.GONE
-
-        viewModel.findAll(requireActivity().applicationContext)
-
-        viewModel.machineFindAllResponseSuccess.observe(viewLifecycleOwner, {
-            Log.d("SUCCESS >>>>>>>>", it.data.body().toString())
-
-            rvMachines.adapter = MachineAdapter({ machineId ->
-
-                view?.findNavController()?.navigate(
-                    MainFragmentDirections.actionMainFragmentToDetailMachineFragment(machineId)
-                )
-
-            }, it.data.body()!!, this.activity as MainActivity)
-
-            loading.visibility = View.GONE
-            lavNoMachine.visibility = if (it.data.body()!!.isEmpty()) View.VISIBLE else View.GONE
-            tvNoMachine.visibility = if (it.data.body()!!.isEmpty()) View.VISIBLE else View.GONE
-            tvErrorMachine.visibility = View.GONE
-        })
-
-        viewModel.machineFindAllResponseError.observe(viewLifecycleOwner, {
-            Log.d("ERROR >>>>>>>>", it.toString())
-            rvMachines.adapter = MachineAdapter({}, listOf(), this.activity as MainActivity)
-
-            loading.visibility = View.GONE
-            lavNoMachine.visibility = View.GONE
-            tvNoMachine.visibility = View.GONE
-            tvErrorMachine.visibility = View.VISIBLE
-        })
+        binding.loading.visibility = View.VISIBLE
+        binding.lavNoMachine.visibility = View.GONE
+        binding.tvNoMachine.visibility = View.GONE
+        binding.tvErrorMachine.visibility = View.GONE
 
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MachineViewModel::class.java)
 
-        // TODO: Use the ViewModel
+        viewModel.findAll(requireActivity().applicationContext)
+
+        viewModel.machineFindAllResponseSuccess.observe(viewLifecycleOwner, {
+            binding.rvMachines.adapter = MachineAdapter({ machineId ->
+                view.findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToMachineDetailsFragment(machineId)
+                )},
+                it.data.body()!!
+            )
+
+            binding.loading.visibility = View.GONE
+            binding.lavNoMachine.visibility =
+                if (it.data.body()!!.isEmpty()) View.VISIBLE
+                else View.GONE
+            binding.tvNoMachine.visibility =
+                if (it.data.body()!!.isEmpty()) View.VISIBLE
+                else View.GONE
+            binding.tvErrorMachine.visibility = View.GONE
+        })
+
+        viewModel.machineFindAllResponseError.observe(viewLifecycleOwner, {
+            binding.rvMachines.adapter = MachineAdapter(
+                {},
+                listOf()
+            )
+
+            binding.loading.visibility = View.GONE
+            binding.lavNoMachine.visibility = View.GONE
+            binding.tvNoMachine.visibility = View.GONE
+            binding.tvErrorMachine.visibility = View.VISIBLE
+        })
     }
 
 }

@@ -16,11 +16,6 @@ import fr.maximedubost.digikofyapp.session.DigikofySession
 import fr.maximedubost.digikofyapp.ui.main.MainFragmentDirections
 
 class UserFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = UserFragment()
-    }
-
     private lateinit var viewModel: UserViewModel
     private lateinit var binding: UserFragmentBinding
 
@@ -49,7 +44,6 @@ class UserFragment : Fragment() {
 
         Log.d("TOKEN >>>>>>>>", DigikofySession.getIdToken(requireActivity().applicationContext)?.substring(0, 16).toString())
 
-
         ivBack.setOnClickListener {
             view?.findNavController()?.popBackStack()
         }
@@ -67,9 +61,6 @@ class UserFragment : Fragment() {
             ).show()
 
             view?.findNavController()?.popBackStack(R.id.loginFragment, false)
-            //.navigate(
-            //    UserFragmentDirections.actionUserFragmentToLoginFragment()
-            //)
         }
 
         btnDeleteUser.setOnClickListener {
@@ -85,9 +76,6 @@ class UserFragment : Fragment() {
                 ).show()
 
                 view?.findNavController()?.popBackStack(R.id.loginFragment, false)
-                //view?.findNavController()?.navigate(
-                //    UserFragmentDirections.actionUserFragmentToLoginFragment()
-                //)
             })
 
             viewModel.userResponseError.observe(viewLifecycleOwner, {
@@ -103,10 +91,9 @@ class UserFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }
