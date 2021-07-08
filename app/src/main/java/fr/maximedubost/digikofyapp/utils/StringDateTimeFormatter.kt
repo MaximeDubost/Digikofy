@@ -1,16 +1,15 @@
 package fr.maximedubost.digikofyapp.utils
 
 import android.annotation.SuppressLint
-import java.lang.StringBuilder
-import java.text.SimpleDateFormat
+import java.time.Duration
+import java.time.Instant
+import java.time.LocalDateTime
 import java.util.*
 
 class StringDateTimeFormatter {
     companion object {
 
-        @SuppressLint("SimpleDateFormat")
         // val ISO_8601_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-
         // fun now(): String = ISO_8601_FORMAT.format(Date())
 
         fun from(stringDate: String): String {
@@ -73,5 +72,39 @@ class StringDateTimeFormatter {
             }
             return "Planifier"
         }
+
+        fun durationBetweenNowAnd(stringDate: String, pastDate: Boolean = false): String {
+            lateinit var prefix: String
+            lateinit var duration: Duration
+            val instantDate = Instant.parse("${stringDate.substring(0, 16)}:00.00Z")
+            val instantNow = Instant.parse("${LocalDateTime.now().toString().substring(0, 16)}:00.00Z")
+
+            if(pastDate) {
+                prefix = "Préparé il y a"
+                duration = Duration.between(instantDate, instantNow)
+            }
+            else {
+                prefix = "Préparation dans"
+                duration = Duration.between(instantNow, instantDate)
+            }
+
+            if(duration.isNegative)
+                return if(pastDate)
+                    "Déjà préparé"
+                else
+                    "Pas encore préparé"
+
+            val days = duration.toDays()
+            val hours = duration.toHours() - duration.toDays() * 24
+            val minutes = duration.toMinutes() - duration.toHours() * 60
+
+            return when(0L) {
+                minutes -> "$prefix un instant"
+                hours -> "$prefix $minutes minutes"
+                days -> "$prefix ${hours}h et ${minutes}m"
+                else -> "$prefix ${days}j ${hours}h et ${minutes}m"
+            }
+        }
+
     }
 }

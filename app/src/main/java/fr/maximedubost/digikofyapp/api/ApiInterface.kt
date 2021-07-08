@@ -75,6 +75,16 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): Response<List<PreparationModel>>
 
+    @GET("preparation/home/next")
+    suspend fun findNextPreparation(
+        @Header("Authorization") token: String,
+    ): Response<PreparationModel>
+
+    @GET("preparation/home/last")
+    suspend fun findLastPreparation(
+        @Header("Authorization") token: String,
+    ): Response<PreparationModel>
+
     @GET("preparation/{id}")
     suspend fun findPreparationById(
         @Header("Authorization") token: String,

@@ -37,6 +37,22 @@ object PreparationRepository {
     }
 
     /**
+     * Read the next preparation
+     * @return Preparation object
+     */
+    suspend fun findNext(context: Context): ApiResult<Response<PreparationModel>> = safeApiCall {
+        retrofitClient.findNextPreparation("Bearer ${DigikofySession.getIdToken(context)!!}")
+    }
+
+    /**
+     * Read the last preparation
+     * @return Preparation object
+     */
+    suspend fun findLast(context: Context): ApiResult<Response<PreparationModel>> = safeApiCall {
+        retrofitClient.findLastPreparation("Bearer ${DigikofySession.getIdToken(context)!!}")
+    }
+
+    /**
      * Update a preparation
      * @param id Preparation id
      * @return HTTP status code
