@@ -18,7 +18,10 @@ import fr.maximedubost.digikofyapp.models.PreparationModel
 import fr.maximedubost.digikofyapp.oldrepositories.PreparationRepository
 import fr.maximedubost.digikofyapp.ui.main.MainFragmentDirections
 
-class PreparationFragment : Fragment() {
+class PreparationFragment(
+    private val pastPreparationsTab: Boolean = false,
+    private val nextPreparationsTab: Boolean = false
+) : Fragment() {
     private lateinit var viewModel: PreparationViewModel
     private lateinit var binding: PreparationFragmentBinding
 
@@ -44,26 +47,51 @@ class PreparationFragment : Fragment() {
         viewModel.findAll(requireActivity().applicationContext)
 
         viewModel.preparationFindAllResponseSuccess.observe(viewLifecycleOwner, {
-            binding.rvPreparations.adapter = PreparationAdapter({ preparationId ->
-                view.findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToPreparationDetailsFragment(preparationId)
-                )},
-                it.data.body()!!
-                    .filter { preparation -> preparation.saved }
-                    .sortedBy { preparation -> preparation.name },
-                isSavedPreparationsPage = true,
-            )
+
+            val preparations: List<PreparationModel> = it.data.body()!!
+
+            when {
+                nextPreparationsTab -> {
+                    binding.rvPreparations.adapter = PreparationAdapter(
+                        {}, // TODO : Demander la confirmation du lancemenent de la préparation
+                        preparations
+                            .filter { preparation -> preparation.isFuturePreparation() }
+                            .sortedBy { preparation -> preparation.nextTime },
+                        isNextPreparationsPage = true,
+                    )
+                }
+                pastPreparationsTab -> {
+                    binding.rvPreparations.adapter = PreparationAdapter(
+                        {}, // TODO : Demander la confirmation du lancemenent de la préparation
+                        preparations
+                            .filter { preparation -> preparation.lastTime != null }
+                            .sortedByDescending { preparation -> preparation.lastTime },
+                        isPastPreparationsPage = true,
+                    )
+                }
+                else -> {
+                    binding.rvPreparations.adapter = PreparationAdapter({ preparationId ->
+                        view.findNavController().navigate(
+                            MainFragmentDirections.actionMainFragmentToPreparationDetailsFragment(preparationId)
+                        )},
+                        preparations
+                            .filter { preparation -> preparation.saved }
+                            .sortedBy { preparation -> preparation.name },
+                        isSavedPreparationsPage = true,
+                    )
+                }
+            }
 
             binding.loading.visibility = View.GONE
             binding.lavNoPreparation.visibility =
-                if (it.data.body()!!.isEmpty()) View.VISIBLE
+                if (preparations.isEmpty()) View.VISIBLE
                 else View.GONE
             binding.tvNoPreparation.visibility =
-                if (it.data.body()!!.isEmpty()) View.VISIBLE
+                if (preparations.isEmpty()) View.VISIBLE
                 else View.GONE
             binding.tvErrorPreparation.visibility = View.GONE
 
-            initNavBar(it.data.body()!!)
+            initNavBar(preparations)
         })
 
         viewModel.preparationFindAllResponseError.observe(viewLifecycleOwner, {
@@ -87,7 +115,12 @@ class PreparationFragment : Fragment() {
      */
     private fun initNavBar(preparations: List<PreparationModel>) {
         binding.llPreparationsNavbar.visibility = View.VISIBLE
-        binding.tvSavedPreparationsTab.setTextColor(Color.BLACK)
+
+        when {
+            nextPreparationsTab -> binding.tvNextPreparationsTab.setTextColor(Color.BLACK)
+            pastPreparationsTab -> binding.tvPastPreparationsTab.setTextColor(Color.BLACK)
+            else -> binding.tvSavedPreparationsTab.setTextColor(Color.BLACK)
+        }
 
         /*
          * Saved preparations tab
@@ -101,8 +134,8 @@ class PreparationFragment : Fragment() {
                     MainFragmentDirections.actionMainFragmentToPreparationDetailsFragment(preparationId)
                 )},
                 preparations
-                    .filter { it.saved }
-                    .sortedBy { it.name },
+                    .filter { preparation -> preparation.saved }
+                    .sortedBy { preparation -> preparation.name },
                 isSavedPreparationsPage = true,
             )
         }
@@ -117,8 +150,8 @@ class PreparationFragment : Fragment() {
             binding.rvPreparations.adapter = PreparationAdapter(
                 {}, // TODO : Demander la confirmation du lancemenent de la préparation
                 preparations
-                    .filter { it.isFuturePreparation() }
-                    .sortedBy { it.nextTime },
+                    .filter { preparation -> preparation.isFuturePreparation() }
+                    .sortedBy { preparation -> preparation.nextTime },
                 isNextPreparationsPage = true,
             )
         }
@@ -133,8 +166,8 @@ class PreparationFragment : Fragment() {
             binding.rvPreparations.adapter = PreparationAdapter(
                 {}, // TODO : Demander la confirmation du lancemenent de la préparation
                 preparations
-                    .filter { it.lastTime != null }
-                    .sortedByDescending { it.lastTime },
+                    .filter { preparation -> preparation.lastTime != null }
+                    .sortedByDescending { preparation -> preparation.lastTime },
                 isPastPreparationsPage = true,
             )
         }

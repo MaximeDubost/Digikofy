@@ -136,7 +136,7 @@ class PreparationDetailsFragment : Fragment() {
         binding.tvPreparationWeekdays.text = StringDateTimeFormatter.weekdays(preparation.weekdays!!)
         binding.tvPreparationCreationDate.text = StringDateTimeFormatter.from(preparation.creationDate.toString())
         binding.tvPreparationLastUpdate.text = StringDateTimeFormatter.from(preparation.lastUpdate.toString())
-        binding.lvPreparationHours // TODO
+        binding.tvPreparationHours.text = StringDateTimeFormatter.weekdays(preparation.weekdays!!)
     }
 
     /**

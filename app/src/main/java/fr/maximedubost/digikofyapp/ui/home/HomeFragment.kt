@@ -5,14 +5,24 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import fr.maximedubost.digikofyapp.R
 import fr.maximedubost.digikofyapp.databinding.HomeFragmentBinding
+import fr.maximedubost.digikofyapp.models.PreparationModel
+import fr.maximedubost.digikofyapp.ui.machine.MachineFragment
+import fr.maximedubost.digikofyapp.ui.main.MainFragment
+import fr.maximedubost.digikofyapp.ui.main.MainFragmentDirections
+import fr.maximedubost.digikofyapp.ui.preparation.PreparationFragment
 import fr.maximedubost.digikofyapp.utils.StringDateTimeFormatter
 
-class HomeFragment : Fragment() {
+class HomeFragment(private val mainFragment: MainFragment, private val menu: Menu) : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: HomeFragmentBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +36,7 @@ class HomeFragment : Fragment() {
         binding.tvNoNextPreparation.visibility = View.GONE
         binding.tvErrorNextPreparation.visibility = View.GONE
         binding.cvLastPreparation.visibility = View.GONE
-        binding.tvLastPreparations.visibility = View.INVISIBLE
+        binding.tvPastPreparations.visibility = View.INVISIBLE
         binding.tvNoLastPreparation.visibility = View.GONE
         binding.tvErrorLastPreparation.visibility = View.GONE
 
@@ -42,24 +52,37 @@ class HomeFragment : Fragment() {
         viewModel.preparationFindNextResponseSuccess.observe(viewLifecycleOwner, {
             Log.d("FindNext", "OK")
 
+            val nextPreparation: PreparationModel? = it.data.body()!!
+
             binding.loadingNextPreparation.visibility = View.GONE
 
-            if(it.data.body() == null) {
+            if(nextPreparation == null) {
                 binding.tvNoNextPreparation.visibility = View.VISIBLE
             }
             else {
-                if (it.data.body()!!.name == null)
-                    binding.tvNextPreparationCoffee.visibility = View.GONE
-                else
-                    binding.tvNextPreparationCoffee.visibility = View.VISIBLE
-
+                binding.tvNextPreparationCoffee.visibility =
+                    if (nextPreparation.name == null) View.GONE
+                    else View.VISIBLE
                 binding.cvNextPreparation.visibility = View.VISIBLE
                 binding.tvNextPreparations.visibility = View.VISIBLE
                 binding.tvNextPreparationName.text =
-                    if (it.data.body()!!.name == null) it.data.body()!!.coffee!!.name
-                    else it.data.body()!!.name
-                binding.tvNextPreparationCoffee.text = it.data.body()!!.coffee!!.name
-                binding.tvNextPreparationWhen.text = StringDateTimeFormatter.durationBetweenNowAnd(it.data.body()!!.nextTime!!)
+                    if (nextPreparation.name == null) nextPreparation.coffee!!.name
+                    else nextPreparation.name
+                binding.tvNextPreparationCoffee.text = nextPreparation.coffee!!.name
+                binding.tvNextPreparationWhen.text = StringDateTimeFormatter
+                    .durationBetweenNowAnd(nextPreparation.nextTime!!)
+
+                binding.cvNextPreparation.setOnClickListener {
+                    view.findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToPreparationDetailsFragment(nextPreparation.id!!)
+                    )
+                }
+
+                binding.tvNextPreparations.setOnClickListener {
+                    menu.findItem(R.id.coffee_page).isChecked = true
+                    mainFragment.updateView(R.id.coffee_page)
+                    mainFragment.loadFragment(PreparationFragment(nextPreparationsTab = true))
+                }
             }
         })
 
@@ -69,29 +92,47 @@ class HomeFragment : Fragment() {
             binding.loadingNextPreparation.visibility = View.GONE
         })
 
+
+
+
         viewModel.findLast(requireActivity().applicationContext)
 
         viewModel.preparationFindLastResponseSuccess.observe(viewLifecycleOwner, {
             Log.d("FindLast", "OK")
 
+            val lastPreparation: PreparationModel? = it.data.body()!!
+
             binding.loadingLastPreparation.visibility = View.GONE
 
-            if(it.data.body() == null) {
+            if(lastPreparation == null) {
                 binding.tvNoLastPreparation.visibility = View.VISIBLE
             }
             else {
-                if (it.data.body()!!.name == null)
-                    binding.tvLastPreparationCoffee.visibility = View.GONE
-                else
-                    binding.tvLastPreparationCoffee.visibility = View.VISIBLE
-
+                binding.tvLastPreparationCoffee.visibility =
+                    if (lastPreparation.name == null) View.GONE
+                    else View.VISIBLE
                 binding.cvLastPreparation.visibility = View.VISIBLE
-                binding.tvLastPreparations.visibility = View.VISIBLE
+                binding.tvPastPreparations.visibility = View.VISIBLE
                 binding.tvLastPreparationName.text =
-                    if (it.data.body()!!.name == null) it.data.body()!!.coffee!!.name
-                    else it.data.body()!!.name
-                binding.tvLastPreparationCoffee.text = it.data.body()!!.coffee!!.name
-                binding.tvLastPreparationWhen.text = StringDateTimeFormatter.durationBetweenNowAnd(it.data.body()!!.lastTime!!, true)
+                    if (lastPreparation.name == null) lastPreparation.coffee!!.name
+                    else lastPreparation.name
+                binding.tvLastPreparationCoffee.text = lastPreparation.coffee!!.name
+                binding.tvLastPreparationWhen.text = StringDateTimeFormatter
+                    .durationBetweenNowAnd(lastPreparation.lastTime!!, true)
+
+
+                binding.cvLastPreparation.setOnClickListener {
+                    view.findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToPreparationDetailsFragment(lastPreparation.id!!)
+                    )
+                }
+
+                binding.tvPastPreparations.setOnClickListener {
+                    menu.findItem(R.id.coffee_page).isChecked = true
+                    mainFragment.updateView(R.id.coffee_page)
+                    mainFragment.loadFragment(PreparationFragment(pastPreparationsTab = true))
+                }
+
             }
         })
 

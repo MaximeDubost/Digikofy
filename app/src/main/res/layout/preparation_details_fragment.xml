@@ -114,19 +114,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_preparation_weekdays"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-            <ListView
-                android:id="@+id/lv_preparation_hours"
-                android:layout_width="match_parent"
+            <TextView
+                android:text="08:00, 10:00, 12:00, 14:00"
+                android:id="@+id/tv_preparation_hours"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv_preparation_hours_label"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:paddingBottom="@dimen/very_tiny_dimen"
+                android:paddingEnd="@dimen/short_dimen"
+                android:paddingStart="@dimen/tiny_dimen"
+                app:layout_constraintTop_toTopOf="@+id/tv_preparation_hours_label"
+                app:layout_constraintStart_toEndOf="@+id/tv_preparation_hours_label"/>
 
             <LinearLayout
                 android:id="@+id/ll_preparation_creation_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/lv_preparation_hours"
+                app:layout_constraintTop_toBottomOf="@+id/tv_preparation_hours"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="@dimen/short_dimen">
 

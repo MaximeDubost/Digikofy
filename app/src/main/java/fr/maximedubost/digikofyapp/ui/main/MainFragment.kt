@@ -38,7 +38,7 @@ class MainFragment : Fragment() {
             )
         }
 
-        loadFragment(HomeFragment())
+        loadFragment(HomeFragment(this, binding.bnvHome.menu))
         createBottomNavigationBar(binding.bnvHome)
 
         // Sélection de l'item "Menu" par défaut
@@ -53,7 +53,7 @@ class MainFragment : Fragment() {
                 }
                 R.id.home_page -> {
                     updateView(R.id.home_page)
-                    loadFragment(HomeFragment())
+                    loadFragment(HomeFragment(this, binding.bnvHome.menu))
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.coffee_page -> {
@@ -78,7 +78,7 @@ class MainFragment : Fragment() {
      *
      * @param menuItemId id of view's menu item
      */
-    private fun updateView(menuItemId: Int) {
+    internal fun updateView(menuItemId: Int) {
         when(menuItemId) {
             R.id.machine_page -> {
                 binding.tvMainPageTitle.text = resources.getString(R.string.machine_page_title)
@@ -122,7 +122,7 @@ class MainFragment : Fragment() {
      *
      * @param fragment Fragment to load
      */
-    private fun loadFragment(fragment: Fragment) {
+    internal fun loadFragment(fragment: Fragment) {
         val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
@@ -144,6 +144,10 @@ class MainFragment : Fragment() {
             .setTopRightCorner(CornerFamily.ROUNDED, radius)
             .setTopLeftCorner(CornerFamily.ROUNDED, radius)
             .build()
+    }
+
+    private fun goToPreparationsTab() {
+
     }
 
 }

@@ -1,6 +1,5 @@
 package fr.maximedubost.digikofyapp.utils
 
-import android.annotation.SuppressLint
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
@@ -12,6 +11,12 @@ class StringDateTimeFormatter {
         // val ISO_8601_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         // fun now(): String = ISO_8601_FORMAT.format(Date())
 
+        /**
+         * Return string representation of string timestamp
+         *
+         * @param stringDate string timestamp
+         * @return a string representation
+         */
         fun from(stringDate: String): String {
             if(stringDate.length == 25 &&
                 stringDate[4] == '-' &&
@@ -32,12 +37,18 @@ class StringDateTimeFormatter {
             return "Inconnue"
         }
 
-        fun weekdays(intList: ArrayList<Int>): String {
-            if(intList.size == 7)
+        /**
+         * Get a string representation of weekdays
+         *
+         * @param weekdayIndices list of weekday indices
+         * @return a string representation of weekdays
+         */
+        fun weekdays(weekdayIndices: ArrayList<Int>): String {
+            if(weekdayIndices.size == 7)
                 return "Tous les jours"
-            if(intList.size != 0) {
-                var daysOfWeek = StringBuilder().append("Tous les ")
-                intList.forEach {
+            if(weekdayIndices.size != 0) {
+                val daysOfWeek = StringBuilder().append("Tous les ")
+                weekdayIndices.forEach {
                     when(it) {
                         0 -> daysOfWeek.append("Lun, ")
                         1 -> daysOfWeek.append("Mar, ")
@@ -62,6 +73,12 @@ class StringDateTimeFormatter {
             return "Non planifié"
         }
 
+        /**
+         * Get a string representation of hours
+         *
+         * @param localTimeListToString list of string hours
+         * @return a string representation of hours
+         */
         fun hours(localTimeListToString: ArrayList<String>): String {
             if(localTimeListToString.size != 0) {
                 val hours = StringBuilder()
@@ -73,6 +90,13 @@ class StringDateTimeFormatter {
             return "Planifier"
         }
 
+        /**
+         * Get a string representation of period between two dates
+         *
+         * @param stringDate string date to compare with now
+         * @param pastDate true if stringDate is a past date, else false (default false)
+         * @return a string representation of calculated period
+         */
         fun durationBetweenNowAnd(stringDate: String, pastDate: Boolean = false): String {
             lateinit var prefix: String
             lateinit var duration: Duration
@@ -101,8 +125,8 @@ class StringDateTimeFormatter {
             return when(0L) {
                 minutes -> "$prefix un instant"
                 hours -> "$prefix $minutes minutes"
-                days -> "$prefix ${hours}h et ${minutes}m"
-                else -> "$prefix ${days}j ${hours}h et ${minutes}m"
+                days -> "$prefix $hours heures"
+                else -> "$prefix $days jours"
             }
         }
 

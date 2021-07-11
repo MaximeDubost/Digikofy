@@ -239,7 +239,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_last_preparations"
+            android:id="@+id/tv_past_preparations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/home_page_show_all_past_coffees_button"
