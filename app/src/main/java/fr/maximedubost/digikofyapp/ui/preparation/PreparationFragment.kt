@@ -116,6 +116,10 @@ class PreparationFragment(
     private fun initNavBar(preparations: List<PreparationModel>) {
         binding.llPreparationsNavbar.visibility = View.VISIBLE
 
+        binding.tvSavedPreparationsTab.setTextColor(Color.GRAY)
+        binding.tvNextPreparationsTab.setTextColor(Color.GRAY)
+        binding.tvPastPreparationsTab.setTextColor(Color.GRAY)
+
         when {
             nextPreparationsTab -> binding.tvNextPreparationsTab.setTextColor(Color.BLACK)
             pastPreparationsTab -> binding.tvPastPreparationsTab.setTextColor(Color.BLACK)

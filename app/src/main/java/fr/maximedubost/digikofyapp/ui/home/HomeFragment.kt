@@ -40,6 +40,12 @@ class HomeFragment(private val mainFragment: MainFragment, private val menu: Men
         binding.tvNoLastPreparation.visibility = View.GONE
         binding.tvErrorLastPreparation.visibility = View.GONE
 
+        binding.btnNewPreparation.setOnClickListener {
+            view?.findNavController()?.navigate(
+                MainFragmentDirections.actionMainFragmentToCreatePreparationFragment()
+            )
+        }
+
         return binding.root
     }
 
@@ -52,7 +58,11 @@ class HomeFragment(private val mainFragment: MainFragment, private val menu: Men
         viewModel.preparationFindNextResponseSuccess.observe(viewLifecycleOwner, {
             Log.d("FindNext", "OK")
 
-            val nextPreparation: PreparationModel? = it.data.body()!!
+            val nextPreparation: PreparationModel? =
+                if(it.data.body() == null)
+                    null
+                else
+                    it.data.body()!!
 
             binding.loadingNextPreparation.visibility = View.GONE
 
@@ -100,7 +110,11 @@ class HomeFragment(private val mainFragment: MainFragment, private val menu: Men
         viewModel.preparationFindLastResponseSuccess.observe(viewLifecycleOwner, {
             Log.d("FindLast", "OK")
 
-            val lastPreparation: PreparationModel? = it.data.body()!!
+            val lastPreparation: PreparationModel? =
+                if(it.data.body() == null)
+                    null
+                else
+                    it.data.body()!!
 
             binding.loadingLastPreparation.visibility = View.GONE
 

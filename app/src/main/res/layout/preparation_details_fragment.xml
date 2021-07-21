@@ -104,7 +104,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
-                android:text="Heures :"
+                android:text="À"
                 android:id="@+id/tv_preparation_hours_label"
                 style="@style/DefaultTextStyle"
                 android:layout_width="wrap_content"

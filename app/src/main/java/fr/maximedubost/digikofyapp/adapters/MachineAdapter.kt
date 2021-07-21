@@ -45,7 +45,7 @@ class MachineAdapter(
         holder.fabUseMachine.setOnClickListener {
             Toast.makeText(
                 MainActivity.appContext,
-                "Coming soon...",
+                "Lancement de la préparation...",
                 Toast.LENGTH_SHORT
             ).show()
         }

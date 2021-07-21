@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.user.UserFragment">
+
+            <!-- Header -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/very_large_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="@dimen/tiny_dimen">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="@dimen/medium_dimen"
+                    android:layout_height="@dimen/medium_dimen"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/short_dimen"
+                    android:layout_marginStart="@dimen/short_dimen"
+                    android:contentDescription="Retour" />
+
+                <TextView
+                    style="@style/BoldTitleTextStyle24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nouvelle préparation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_action"
+                    app:layout_constraintStart_toEndOf="@+id/iv_back"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="@dimen/short_dimen" />
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/iv_action"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="@dimen/medium_dimen"
+                    android:layout_height="@dimen/medium_dimen"
+                    android:src="@drawable/ic_qr"
+                    android:layout_marginTop="@dimen/short_dimen"
+                    android:layout_marginEnd="@dimen/short_dimen" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_coffees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/short_dimen_text"
+                android:text="Café"
+                android:theme="@style/DefaultTextStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header"/>
+
+            <Spinner
+                android:id="@+id/spn_coffees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny_dimen"
+                android:layout_marginStart="@dimen/short_dimen_text"
+                android:layout_marginEnd="@dimen/short_dimen_text"
+                app:layout_constraintTop_toBottomOf="@+id/tv_coffees"
+                app:layout_constraintStart_toStartOf="parent"
+                android:elevation="0.5dp"
+                android:outlineProvider="bounds" />
+
+            <TextView
+                android:id="@+id/tv_preparation_planing_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/short_dimen_text"
+                android:layout_marginTop="@dimen/short_dimen_text"
+                android:text="Planification"
+                android:theme="@style/DefaultTextStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spn_coffees" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_preparation_planification_type"
+                android:layout_width="@dimen/divider_width"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_preparation_planing_type">
+
+                <TextView
+                    android:id="@+id/tv_unique_planing_preparation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unique"
+                    app:layout_constraintEnd_toStartOf="@id/switch_planing_type"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_planing_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_multiple_planing_preparation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Récurrente"
+                    app:layout_constraintStart_toEndOf="@+id/switch_planing_type"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_preparation_planing_type"
+                android:orientation="horizontal">
+
+                <!-- Multiple -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_create_saved_preparation"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_preparation_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/short_dimen_text"
+                        android:layout_marginStart="@dimen/short_dimen_text"
+                        android:layout_marginEnd="@dimen/short_dimen_text"
+                        android:hint="Nom de la préparation"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <EditText
+                            android:id="@+id/et_machine_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_preparation_weekdays"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/short_dimen_text"
+                        android:layout_marginTop="@dimen/short_dimen_text"
+                        android:text="Jours de la semaine"
+                        android:theme="@style/DefaultTextStyle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/til_preparation_name" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_weekdays_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_margin="@dimen/tiny_dimen"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_preparation_weekdays">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <Button
+                                android:id="@+id/btn_monday"
+                                style="@style/WeekdayButton"
+                                android:layout_width="@dimen/medium_dimen"
+                                android:layout_height="@dimen/medium_dimen"
+                                android:layout_margin="@dimen/tiny_dimen"
+                                android:text="L"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/btn_tuesday"
+                                style="@style/WeekdayButton"
+                                android:layout_width="@dimen/medium_dimen"
+                                android:layout_height="@dimen/medium_dimen"
+                                android:layout_margin="@dimen/tiny_dimen"
+                                android:text="M"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/btn_wednesday"
+                                style="@style/WeekdayButton"
+                                android:layout_width="@dimen/medium_dimen"
+                                android:layout_height="@dimen/medium_dimen"
+                                android:layout_margin="@dimen/tiny_dimen"
+                                android:text="M"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/btn_thursday"
+                                style="@style/WeekdayButton"
+                                android:layout_width="@dimen/medium_dimen"
+                                android:layout_height="@dimen/medium_dimen"
+                                android:layout_margin="@dimen/tiny_dimen"
+                                android:text="J"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/btn_friday"
+                                style="@style/WeekdayButton"
+                                android:layout_width="@dimen/medium_dimen"
+                                android:layout_height="@dimen/medium_dimen"
+                                android:layout_margin="@dimen/tiny_dimen"
+                                android:text="V"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/btn_saturday"
+                                style="@style/WeekdayButton"
+                                android:layout_width="@dimen/medium_dimen"
+                                android:layout_height="@dimen/medium_dimen"
+                                android:layout_margin="@dimen/tiny_dimen"
+                                android:text="S"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/btn_sunday"
+                                style="@style/WeekdayButton"
+                                android:layout_width="@dimen/medium_dimen"
+                                android:layout_height="@dimen/medium_dimen"
+                                android:layout_margin="@dimen/tiny_dimen"
+                                android:text="D"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_preparation_time_multiple"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/short_dimen_text"
+                        android:text="Horaires"
+                        android:theme="@style/DefaultTextStyle"
+                        app:layout_constraintBottom_toBottomOf="@+id/tp_preparation_time_multiple"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tp_preparation_time_multiple" />
+
+                    <TimePicker
+                        android:id="@+id/tp_preparation_time_multiple"
+                        android:layout_width="@dimen/divider_width"
+                        android:layout_height="wrap_content"
+                        android:timePickerMode="spinner"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_weekdays_picker" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_add_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add_white"
+                        app:fabSize="mini"
+                        app:layout_constraintBottom_toBottomOf="@+id/tp_preparation_time_multiple"
+                        app:layout_constraintStart_toEndOf="@+id/tp_preparation_time_multiple"
+                        app:layout_constraintTop_toTopOf="@+id/tp_preparation_time_multiple">
+                    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_preparation_hours"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tp_preparation_time_multiple">
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/tv_no_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/default_dimen"
+                        android:text="Aucun horaire ajouté"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tp_preparation_time_multiple"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Unique -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_create_unique_preparation"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_preparation_when"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/short_dimen_text"
+                        android:layout_marginTop="@dimen/short_dimen_text"
+                        android:text="Préparer"
+                        android:theme="@style/DefaultTextStyle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ll_preparation_when"
+                        android:layout_width="@dimen/divider_width"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_preparation_when">
+
+                        <TextView
+                            android:id="@+id/tv_preparation_now"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maintenant"
+                            app:layout_constraintEnd_toStartOf="@id/switch_when_preparation"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switch_when_preparation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/tv_preparation_later"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Plus tard"
+                            app:layout_constraintStart_toEndOf="@id/switch_when_preparation"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_preparation_later"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_preparation_when"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_preparation_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/short_dimen"
+                            android:text="Date"
+                            android:theme="@style/DefaultTextStyle"
+                            app:layout_constraintBottom_toBottomOf="@+id/dp_preparation_date"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/dp_preparation_date" />
+
+                        <DatePicker
+                            android:id="@+id/dp_preparation_date"
+                            android:layout_width="@dimen/divider_width"
+                            android:layout_height="wrap_content"
+                            android:calendarViewShown="false"
+                            android:datePickerMode="spinner"
+                            android:layout_marginEnd="@dimen/large_dimen"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_preparation_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/short_dimen"
+                            android:text="Heure"
+                            android:theme="@style/DefaultTextStyle"
+                            app:layout_constraintBottom_toBottomOf="@+id/tp_preparation_time"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/dp_preparation_date" />
+
+                        <TimePicker
+                            android:id="@+id/tp_preparation_time"
+                            android:layout_width="@dimen/divider_width"
+                            android:layout_height="wrap_content"
+                            android:timePickerMode="spinner"
+                            android:layout_marginEnd="@dimen/large_dimen"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/dp_preparation_date" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_create_preparation"
+                style="@style/DefaultButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_body"
+                android:layout_margin="@dimen/short_dimen"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/short_dimen"
+                app:layout_constraintTop_toBottomOf="@id/btn_create_preparation"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

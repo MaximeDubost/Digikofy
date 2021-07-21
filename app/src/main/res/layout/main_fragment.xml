@@ -40,7 +40,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="@dimen/medium_dimen"
                 android:layout_height="@dimen/medium_dimen"
-                android:src="@drawable/ic_user"
+                android:src="@drawable/ic_settings"
                 android:layout_marginTop="@dimen/short_dimen"
                 android:layout_marginEnd="@dimen/short_dimen"/>
 

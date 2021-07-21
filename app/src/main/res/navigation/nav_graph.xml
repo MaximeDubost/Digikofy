@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_mainFragment_to_machineDetailsFragment"
             app:destination="@id/machineDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createPreparationFragment"
+            app:destination="@id/createPreparationFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -47,14 +50,8 @@
         android:name="fr.maximedubost.digikofyapp.ui.machine.CreateMachineFragment"
         android:label="create_machine_fragment"
         tools:layout="@layout/create_machine_fragment" >
-        <action
-            android:id="@+id/action_createMachineFragment_to_scanMachineFragment"
-            app:destination="@id/scanMachineFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/scanMachineFragment"
-        android:name="fr.maximedubost.digikofyapp.ui.machine.ScanMachineFragment"
-        android:label="ScanMachineFragment" />
+
     <fragment
         android:id="@+id/preparationDetailsFragment"
         android:name="fr.maximedubost.digikofyapp.ui.preparation.PreparationDetailsFragment"
@@ -72,4 +69,8 @@
             android:name="machineId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/createPreparationFragment"
+        android:name="fr.maximedubost.digikofyapp.ui.preparation.CreatePreparationFragment"
+        android:label="CreatePreparationFragment" />
 </navigation>

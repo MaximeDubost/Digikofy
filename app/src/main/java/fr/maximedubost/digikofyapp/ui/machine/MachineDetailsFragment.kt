@@ -117,7 +117,7 @@ class MachineDetailsFragment : Fragment() {
         // TODO : Redirect to new preparation view
         Toast.makeText(
             requireActivity().applicationContext,
-            "Coming soon...",
+            "Lancement de la préparation...",
             Toast.LENGTH_SHORT
         ).show()
     }

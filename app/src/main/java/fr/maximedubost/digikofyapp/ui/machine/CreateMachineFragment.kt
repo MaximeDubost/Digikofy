@@ -24,10 +24,6 @@ import kotlin.reflect.typeOf
 
 class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-    companion object {
-        fun newInstance() = CreateMachineFragment()
-    }
-
     private lateinit var viewModel: MachineViewModel
     private lateinit var binding: CreateMachineFragmentBinding
 
@@ -141,7 +137,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK) {
                 val contents: String? = data?.getStringExtra("SCAN_RESULT")
-                Log.d("onActivityResult",contents)
+                Log.d("onActivityResult", contents.toString())
                 try {
                     val machineModel : MachineModel = Gson().fromJson(contents, MachineModel::class.java)
                     Log.d("onActivityResult", "$contents Val json : $machineModel")
@@ -151,7 +147,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         MachineType.STANDARD.ordinal -> binding.spnMachineType.setSelection(MachineType.STANDARD.ordinal)
                         MachineType.ENTERPRISE.ordinal -> binding.spnMachineType.setSelection(MachineType.ENTERPRISE.ordinal)
                     }
-                }catch (e: Exception) {
+                } catch (e: Exception) {
                     Toast.makeText(
                         requireContext().applicationContext,
                         "QR code invalide",
@@ -159,6 +155,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     ).show()
                 }
             }
+            /*
             if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(
                     requireActivity().applicationContext,
@@ -166,6 +163,7 @@ class CreateMachineFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+             */
         }
 
     }

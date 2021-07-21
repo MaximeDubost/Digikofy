@@ -118,7 +118,7 @@ class PreparationDetailsFragment : Fragment() {
         // TODO : Start preparation
         Toast.makeText(
             context,
-            "Coming soon...",
+            "Lancement de la préparation...",
             Toast.LENGTH_SHORT
         ).show()
     }
@@ -136,7 +136,7 @@ class PreparationDetailsFragment : Fragment() {
         binding.tvPreparationWeekdays.text = StringDateTimeFormatter.weekdays(preparation.weekdays!!)
         binding.tvPreparationCreationDate.text = StringDateTimeFormatter.from(preparation.creationDate.toString())
         binding.tvPreparationLastUpdate.text = StringDateTimeFormatter.from(preparation.lastUpdate.toString())
-        binding.tvPreparationHours.text = StringDateTimeFormatter.weekdays(preparation.weekdays!!)
+        binding.tvPreparationHours.text = StringDateTimeFormatter.hours(preparation.hours!!)
     }
 
     /**

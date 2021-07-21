@@ -96,6 +96,7 @@
         <TextView
             android:id="@+id/tv_machine_type"
             android:text="Type de machine"
+            android:theme="@style/DefaultTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_dimen"
