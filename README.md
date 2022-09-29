@@ -1,5 +1,4 @@
-[IMG]
-
+![](img/banner.png)
 
 # Digikofy
 
@@ -25,7 +24,7 @@ Digikofy requiert au minimum la version 5 d'Android (Lolipop API 21).
 
 Voici les wireframes de l’application réalisés à l’aide de l’outil Figma :
 
-[IMG]
+![](img/wireframes.png)
 
 Cette capture d’écran de l’outil montre trois wireframes des trois écrans principaux de l’application mobile Digikofy : l’écran d’accueil, l’écran des machines à café d’un utilisateur et l’écran des préparations de café d’un utilisateur.
 
@@ -42,7 +41,7 @@ Ces trois écrans sont liés par une barre de navigation située sur la partie i
 
 La structure de l’application est basée sur une architecture MVVM (Model View ViewModel). Il s’agit d’une méthode qui permet, à la manière de l’architecture MVC, de séparer les vues de la logique et de l’accès aux données.
 
-[IMG]
+![](img/architecture.png)
 
 À l’ouverture de l’application, l’utilisateur atteindra l’écran de connexion s’il n’est pas connecté, ou l’écran d’accueil s’il est connecté. L’ensemble des écrans de l’application se découpe en cinq grands groupes :
 - L’authentification, comprenant l’écran de connexion et l’écran d’inscription
